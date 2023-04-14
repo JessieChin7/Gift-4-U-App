@@ -1,19 +1,25 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { StatusBar } from 'expo-status-bar';
 import { styles } from './App-styles';
-export default function App() {
-  const [checkedItems, setCheckedItems] = useState([]);
 
-  const items = [
+interface Item {
+  id: number;
+  title: string;
+}
+
+const App: React.FC = () => {
+  const [checkedItems, setCheckedItems] = useState<number[]>([]);
+
+  const items: Item[] = [
     { id: 1, title: '價格命運抽抽抽' },
     { id: 2, title: '收禮方式抽抽抽' },
     { id: 3, title: '包裝方式抽抽抽' },
     { id: 4, title: '送禮者線索數量' },
   ];
 
-  const toggleChecked = (id) => {
+  const toggleChecked = (id: number) => {
     if (checkedItems.includes(id)) {
       setCheckedItems(checkedItems.filter((item) => item !== id));
     } else {
@@ -23,9 +29,11 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView style={styles.scrollView}>
         {items.map((item) => (
           <CheckBox
+            containerStyle={styles.checkBoxContainer}
+            textStyle={styles.checkBoxTitle}
             key={item.id}
             title={item.title}
             checked={checkedItems.includes(item.id)}
@@ -36,4 +44,6 @@ export default function App() {
       <StatusBar style="auto" />
     </View>
   );
-}
+};
+
+export default App;

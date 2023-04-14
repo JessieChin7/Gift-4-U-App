@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "chalk": "^5.2.0",
     "expo": "~48.0.10",
     "expo-status-bar": "~1.4.4",
     "react": "18.2.0",
@@ -21,7 +22,7 @@
     "@types/jest": "^29.5.0",
     "@types/react": "^18.0.35",
     "@types/react-test-renderer": "^18.0.0",
-    "typescript": "^5.0.4"
+    "typescript": "^4.9.4"
   },
   "private": true
 }
