@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, ScrollView } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { StatusBar } from 'expo-status-bar';
-import { styles } from './Game-styles';
+import { styles } from './Game.style';
 
 interface Item {
     id: number;
