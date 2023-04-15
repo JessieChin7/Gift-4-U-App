@@ -4,17 +4,17 @@ import { Text } from "react-native-elements";
 
 import { StatusBar } from 'expo-status-bar';
 
-import { styles } from "./Home.style";
+import { styles } from "./SearchScreen.style";
 
-interface HomeProps {}
+interface SearchScreenProps {}
 
-const Home: React.FC<HomeProps> = () => {
+const SearchScreen: React.FC<SearchScreenProps> = () => {
   return (
     <View style={styles.container}>
-      <Text>123</Text>
+      <Text>Search</Text>
       <StatusBar style="auto" />
     </View>
   );
 };
 
-export default Home;
+export default SearchScreen;
