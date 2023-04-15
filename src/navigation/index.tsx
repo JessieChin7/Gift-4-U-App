@@ -8,7 +8,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SCREENS, APP_NAME } from "../types";
 
 import HomeScreen from "../screens/home/HomeScreen";
-import Game from "../screens/game/Game";
+import GiftStackNavigator from "../screens/gift/GiftStackNavigator";
 import SearchScreen from "../screens/search/SearchScreen";
 import ShopScreen from "../screens/shop/ShopScreen";
 
@@ -55,16 +55,16 @@ const Navigation = () => {
     return (
       <Tab.Navigator
         screenOptions={({ route }) => ({
-        headerShown: false,
-        tabBarIcon: ({ focused, color, size }) =>
-          renderTabIcon(route, focused, color, size),
+          headerShown: false,
+          tabBarIcon: ({ focused, color, size }) =>
+            renderTabIcon(route, focused, color, size),
           tabBarActiveTintColor: "#667080",
           tabBarInactiveTintColor: "#e8ecf4",
           tabBarShowLabel: false,
-      })}
+        })}
       >
-        <Tab.Screen name={SCREENS.HOME} component={HomeScreen}/>
-        <Tab.Screen name={SCREENS.GIFT} component={Game} />
+        <Tab.Screen name={SCREENS.HOME} component={HomeScreen} />
+        <Tab.Screen name={SCREENS.GIFT} component={GiftStackNavigator} />
         <Tab.Screen name={SCREENS.SEARCH} component={SearchScreen} />
         <Tab.Screen name={SCREENS.SHOP} component={ShopScreen} />
       </Tab.Navigator>
@@ -73,9 +73,9 @@ const Navigation = () => {
 
   return (
     <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: true }}>
-            <Stack.Screen name={APP_NAME}>{renderTabNavigation}</Stack.Screen>
-        </Stack.Navigator>
+      <Stack.Navigator screenOptions={{ headerShown: true }}>
+        <Stack.Screen name={APP_NAME}>{renderTabNavigation}</Stack.Screen>
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };
