@@ -1,4 +1,5 @@
 import React from "react";
+
 import Icon, { IconType } from "react-native-dynamic-vector-icons";
 
 import { NavigationContainer } from "@react-navigation/native";
@@ -11,12 +12,12 @@ import HomeScreen from "../screens/home/HomeScreen";
 import Game from "../screens/game/Game";
 import SearchScreen from "../screens/search/SearchScreen";
 import ShopScreen from "../screens/shop/ShopScreen";
+import { HeaderTitle, AvatarButton } from "./Header";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
-
   const renderTabIcon = (
     route: any,
     focused: boolean,
@@ -73,7 +74,10 @@ const Navigation = () => {
 
   return (
     <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: true }}>
+        <Stack.Navigator screenOptions={{ 
+          headerTitle: (props) => <HeaderTitle {...props} />,
+          headerRight: (props) => <AvatarButton {...props} />,
+        }}>
             <Stack.Screen name={APP_NAME}>{renderTabNavigation}</Stack.Screen>
         </Stack.Navigator>
     </NavigationContainer>
