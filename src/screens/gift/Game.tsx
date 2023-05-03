@@ -34,6 +34,7 @@ const Game: React.FC = () => {
                     <CheckBox
                         containerStyle={styles.checkBoxContainer}
                         textStyle={styles.checkBoxTitle}
+                        style={styles.checkButton}
                         key={item.id}
                         title={item.title}
                         checked={checkedItems.includes(item.id)}
