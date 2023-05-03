@@ -1,18 +1,15 @@
 import React, { useState } from 'react';
 import {
-    StyleSheet,
     View,
     Text,
     Image,
 } from "react-native";
 import { Button } from 'react-native-paper';
 import { StatusBar } from 'expo-status-bar';
-import { styles } from './FriendSelectionScreen.style';
 import Checkbox from 'expo-checkbox';
 import ModalDropdown from 'react-native-modal-dropdown';
 import { useForm, Controller } from 'react-hook-form';
-import Icon from "react-native-dynamic-vector-icons";
-import { color } from 'react-native-elements/dist/helpers';
+import { styles } from './FriendSelectionScreen.style';
 
 const images = require('../../assets/ming.png');
 interface FriendSelectionScreenProps {
@@ -58,7 +55,7 @@ const FriendSelectionScreen: React.FC<FriendSelectionScreenProps> = ({ navigatio
     };
 
     return (
-        <View style={[styles.container,]}>
+        <View style={[styles.container, { marginTop: -50 }]}>
             <Text style={styles.title}>想送給</Text>
             <View style={styles.friendContainer}>
                 <Controller
