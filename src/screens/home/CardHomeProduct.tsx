@@ -1,0 +1,28 @@
+import React from "react";
+import { View, ScrollView } from 'react-native';
+import { Image, Text } from "react-native-elements";
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import RNBounceable from "@freakycoder/react-native-bounceable";
+
+import { NavigatorParamList } from "../../navigation";
+import { styles } from "./CardHomeProduct.style";
+
+interface CardHomeProductProps {}
+
+const CardHomeProduct: React.FC<CardHomeProductProps> = ({}) => {
+  const navigation = useNavigation<NavigationProp<NavigatorParamList>>();
+  return (
+    <RNBounceable style={styles.container} onPress={() => {navigation.navigate('Product')}}>
+      <Image style={styles.image} source={require('../../assets/product-hanger.png')}/>
+      <View style={styles.infoContainer}>
+        <View style={styles.textContainer}>
+          <Text style={styles.textProductName}> Lorem ipsum dolor </Text>
+          <Text style={styles.textProductPrice}> $15.18 </Text>
+        </View>
+        <Image source={require('../../assets/icon-fav.png')} style={styles.icon}/>
+      </View>
+    </RNBounceable>
+  );
+};
+
+export default CardHomeProduct;
