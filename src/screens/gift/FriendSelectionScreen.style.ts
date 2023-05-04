@@ -6,8 +6,6 @@ export const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
-        paddingTop: 50,
-
     },
     title: {
         position: 'absolute',
@@ -20,7 +18,6 @@ export const styles = StyleSheet.create({
         fontSize: 24,
         lineHeight: 46,
         color: '#000000',
-
     },
     friendContainer: {
         position: 'absolute',

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, Image, TouchableOpacity, Modal } from 'react-native';
+import { View, Image, TouchableOpacity, Modal } from 'react-native';
+// import Modal from 'react-native-modal';
+import { Text } from "react-native-elements";
 import { CheckBox, Input } from 'react-native-elements';
 import { Button } from 'react-native-paper';
 import { StatusBar } from 'expo-status-bar';
-import { styles } from './Game.style';
+import { styles } from './GameScreen.style';
 import * as Haptics from 'expo-haptics';
 import { ScrollView } from 'react-native';
 
@@ -11,13 +13,15 @@ interface Item {
     id: number;
     title: string;
 }
-interface FriendSelectionScreenProps {
+interface GameScreenProps {
     navigation: any;
 }
 
 
-const Game: React.FC<FriendSelectionScreenProps> = ({ navigation }) => {
+const GameScreen: React.FC<GameScreenProps> = ({ navigation }) => {
     const [checkedItems, setCheckedItems] = useState<number[]>([]);
+    const [checkeRItems, setCheckedRItems] = useState<number[]>([]);
+    const [checkedPItems, setCheckedPItems] = useState<number[]>([]);
     const [modalVisible, setModalVisible] = useState<boolean>(false);
     const [modalImage, setModalImage] = useState<any>(null);
     const [expandedItems, setExpandedItems] = useState<{ [key: number]: boolean }>({});
@@ -48,9 +52,14 @@ const Game: React.FC<FriendSelectionScreenProps> = ({ navigation }) => {
         { id: 4, title: '送禮者線索數量' },
     ];
     const detailReceiveItem: Item[] = [
-        { id: 5, title: '我會親自拿給他' },
-        { id: 6, title: '他需要來跟我拿' },
-        { id: 7, title: '會透過朋友轉交給它' },
+        { id: 1, title: '我會親自拿給他' },
+        { id: 2, title: '他需要來跟我拿' },
+        { id: 3, title: '會透過朋友轉交給它' },
+    ];
+    const detailPackItem: Item[] = [
+        { id: 1, title: '我會精緻包裝' },
+        { id: 2, title: '我會隨便包裝' },
+        { id: 3, title: '我不會包裝' },
     ];
 
     // update state in toggleChecked function
@@ -63,8 +72,24 @@ const Game: React.FC<FriendSelectionScreenProps> = ({ navigation }) => {
             setExpandedItems({ ...expandedItems, [id]: true });
         }
     };
+
+    const toggleRChecked = (id: number) => {
+        if (checkeRItems.includes(id)) {
+            setCheckedRItems(checkeRItems.filter((item) => item !== id));
+        } else {
+            setCheckedRItems([...checkeRItems, id]);
+        }
+    };
+
+    const togglePChecked = (id: number) => {
+        if (checkedPItems.includes(id)) {
+            setCheckedPItems(checkedPItems.filter((item) => item !== id));
+        } else {
+            setCheckedPItems([...checkedPItems, id]);
+        }
+    };
     const handleNextButton = () => {
-        navigation.navigate('Game');
+        navigation.navigate('FormEditScreen');
     };
     const handleBackButton = () => {
         navigation.navigate('FriendSelection');
@@ -110,24 +135,41 @@ const Game: React.FC<FriendSelectionScreenProps> = ({ navigation }) => {
                                         請選擇最少一種收禮方式：
                                     </Text>
                                     {detailReceiveItem.map((Ritem) => (
-                                        <View key={Ritem.id} style={styles.detailBoxContainer}>
+                                        <Button key={Ritem.id} style={styles.detailBoxContainer}>
                                             <CheckBox
                                                 uncheckedIcon="circle-o"
                                                 containerStyle={{ backgroundColor: 'transparent', borderWidth: 0 }}
                                                 textStyle={styles.detailBoxTitle}
                                                 style={styles.detailItem}
                                                 title={Ritem.title}
-                                                checked={checkedItems.includes(Ritem.id)}
-                                                onPress={() => toggleChecked(Ritem.id)}
+                                                checked={checkeRItems.includes(Ritem.id)}
+                                                onPress={() => toggleRChecked(Ritem.id)}
                                             />
-                                        </View>
+                                        </Button>
                                     ))}
                                 </View>
                             )}
                             {item.id === 3 && expandedItems[item.id] && (
-                                <Text style={{ color: "#000000", fontSize: 15, fontWeight: "bold", textAlign: "center", paddingBottom: 13 }}>
-                                    請選擇最少一種包裝方式：
-                                </Text>
+                                <View style={{ alignItems: 'center', }}>
+                                    <Text style={{ color: "#000000", fontSize: 15, fontWeight: "bold", textAlign: "center", paddingBottom: 13 }}>
+                                        請選擇最少一種包裝方式：
+                                    </Text>
+                                    {detailPackItem.map((Pitem) => (
+                                        <Button key={Pitem.id} style={styles.detailBoxContainer}>
+                                            <CheckBox
+                                                uncheckedIcon="circle-o"
+                                                containerStyle={{ backgroundColor: 'transparent', borderWidth: 0 }}
+                                                textStyle={styles.detailBoxTitle}
+                                                style={styles.detailItem}
+                                                title={Pitem.title}
+                                                checked={checkedPItems.includes(Pitem.id)}
+                                                onPress={() => togglePChecked(Pitem.id)}
+                                            />
+                                        </Button>
+                                    ))}
+                                </View>
+
+
                             )}
                         </>
                     ))
@@ -150,12 +192,11 @@ const Game: React.FC<FriendSelectionScreenProps> = ({ navigation }) => {
             >
                 <View style={styles.modalOverlay} >
                     {modalImage && <Image source={modalImage} style={styles.modalImage} />}
-
                 </View>
-            </Modal>
+            </Modal >
 
         </>
     );
 };
 
-export default Game;
+export default GameScreen;

@@ -34,7 +34,7 @@ const FriendSelectionScreen: React.FC<FriendSelectionScreenProps> = ({ navigatio
     const [isAnonymousSelected, setIsAnonymousSelected] = useState(false);
     const [isRealSelected, setIsRealSelected] = useState(false);
     const handleNextButton = () => {
-        navigation.navigate('Game');
+        navigation.navigate('GameScreen');
     };
     const { handleSubmit, control } = useForm();
 
@@ -55,8 +55,8 @@ const FriendSelectionScreen: React.FC<FriendSelectionScreenProps> = ({ navigatio
     };
 
     return (
-        <View style={[styles.container, { marginTop: -50 }]}>
-            <Text style={styles.title}>想送給</Text>
+        <View style={[styles.container]}>
+            <Text style={styles.title}>想給</Text>
             <View style={styles.friendContainer}>
                 <Controller
                     name="friend"
