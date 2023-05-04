@@ -1,7 +1,9 @@
 import React from "react";
-import { View } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { Text, Image } from "react-native-elements";
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 
+import { NavigatorParamList } from "../../navigation/common";
 import { styles } from "./FriendItem.style";
 
 interface FriendItemProps {
@@ -10,12 +12,13 @@ interface FriendItemProps {
 }
 
 const FriendItem: React.FC<FriendItemProps> = ({ src, username }) => {
+  const navigation = useNavigation<NavigationProp<NavigatorParamList>>();
   
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={() => navigation.navigate("Friend_Detail")}>
         <Image source={src} style={styles.image}/>
         <Text style={styles.text}>{username}</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 

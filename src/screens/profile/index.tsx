@@ -1,7 +1,8 @@
 import ProfileScreen from "./ProfileScreen";
 import AboutScreen from "./AboutScreen";
-import FriendListScreen from "./FriendListScreen";
+import FriendsListScreen from "./FriendsListScreen";
 import HistoryScreen from "./HistoryScreen";
 import SettingScreen from "./SettingScreen";
+import FriendDetailScreen from "./FriendDetailScreen";
 
-export { ProfileScreen, AboutScreen, FriendListScreen, HistoryScreen, SettingScreen };
+export { ProfileScreen, AboutScreen, FriendsListScreen, HistoryScreen, SettingScreen, FriendDetailScreen };

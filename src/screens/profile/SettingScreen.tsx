@@ -10,11 +10,7 @@ interface SettingScreenProps {}
 
 const SettingScreen: React.FC<SettingScreenProps> = () => {
   const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = (val: boolean) => {
-    console.log("bf: ", isEnabled)
-    setIsEnabled(!val)
-    console.log("af: ", isEnabled)
-  };
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   return (
     <View style={styles.container}>
         <View style={styles.sectionContainer}>
@@ -32,8 +28,12 @@ const SettingScreen: React.FC<SettingScreenProps> = () => {
           <View style={styles.optionContainer}>
               <Text style={styles.textNoPadding}>好友生日/紀念日提醒</Text>
               <Switch
-                value={isEnabled}
+                trackColor={{ false: "#767577", true: "#ffde99" }}
+                thumbColor={ isEnabled ? "#ffbd33" : "#f4f3f4"}
+                // ios_backgroundColor="#3e3e3e"
                 onValueChange={toggleSwitch}
+                value={isEnabled}
+                style={{marginVertical: -8}}
               />
           </View>
           <SettingItem 

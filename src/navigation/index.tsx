@@ -4,8 +4,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import { TABS, SCREENS } from "../types";
-
 import TabNavigator from "./TabNavigator";
 import WelcomeStackNavigator from "./WelcomeStackNavigator";
 
@@ -21,8 +19,8 @@ const Navigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-          {userToken === '' && <Stack.Screen name={SCREENS.WELCOME} options={{ headerShown: false }}>{WelcomeStackNavigator}</Stack.Screen>}
-          <Stack.Screen name={TABS.NAVIGATOR} options={{ headerShown: false }}>{TabNavigator}</Stack.Screen>
+          {userToken === '' && <Stack.Screen name="Welcome_Navigator" options={{ headerShown: false }} component={WelcomeStackNavigator} />}
+          <Stack.Screen name="Tab_Navigator" options={{ headerShown: false }} component={TabNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
   );

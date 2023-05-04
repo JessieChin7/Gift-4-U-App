@@ -10,8 +10,8 @@ const ShopStack = createNativeStackNavigator();
 const ShopStackNavigator: React.FC = () => {
     return (
         <ShopStack.Navigator>
-            <ShopStack.Screen name="Shop" options={headerOptions}>{ShopScreen}</ShopStack.Screen>
-            <ShopStack.Screen name="Profile" options={{ headerShown: false }}>{ProfileStackNavigator}</ShopStack.Screen>
+            <ShopStack.Screen name="Shop" options={headerOptions} component={ShopScreen} />
+            <ShopStack.Screen name="Profile" options={{ headerShown: false }} component={ProfileStackNavigator} />
         </ShopStack.Navigator>
     );
 };

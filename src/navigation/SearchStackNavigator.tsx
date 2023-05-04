@@ -10,8 +10,8 @@ const SearchStack = createNativeStackNavigator();
 const SearchStackNavigator: React.FC = () => {
     return (
         <SearchStack.Navigator>
-            <SearchStack.Screen name="Game" options={headerOptions}>{SearchScreen}</SearchStack.Screen>
-            <SearchStack.Screen name="Profile" options={{ headerShown: false }}>{ProfileStackNavigator}</SearchStack.Screen>
+            <SearchStack.Screen name="Game" options={headerOptions} component={SearchScreen} />
+            <SearchStack.Screen name="Profile" options={{ headerShown: false }} component={ProfileStackNavigator} />
         </SearchStack.Navigator>
     );
 };

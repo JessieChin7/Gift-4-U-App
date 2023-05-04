@@ -15,7 +15,8 @@ export type NavigatorParamList = {
   
     Profile: undefined;
     About: undefined;
-    Friend_List: undefined;
+    Friends_List: undefined;
+    Friend_Detail: undefined;
     History: undefined;
     Setting: undefined;
   

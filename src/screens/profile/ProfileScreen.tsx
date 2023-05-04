@@ -21,7 +21,7 @@ const ProfileScreen: React.FC<ProfileScreenProps> = () => {
 
       <View style={styles.buttonsContainer}>
         <Button label="關於我" onPress={() => {navigation.navigate('About')}}/>
-        <ButtonOutline label="好友清單" onPress={() => {navigation.navigate('Friend_List')}}/>
+        <ButtonOutline label="好友清單" onPress={() => {navigation.navigate('Friends_List')}}/>
         <ButtonOutline label="送禮與收禮紀錄" onPress={() => {navigation.navigate('History')}}/>
         <ButtonOutline label="設定" onPress={() => {accessPage()}}/>
         <ButtonOutline label="邀請好友" onPress={() => {}}/>

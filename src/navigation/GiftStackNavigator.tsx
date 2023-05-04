@@ -10,8 +10,8 @@ const GiftStack = createNativeStackNavigator();
 const GiftStackNavigator: React.FC = () => {
     return (
         <GiftStack.Navigator>
-            <GiftStack.Screen name="Game" options={headerOptions}>{Game}</GiftStack.Screen>
-            <GiftStack.Screen name="Profile" options={{ headerShown: false }}>{ProfileStackNavigator}</GiftStack.Screen>
+            <GiftStack.Screen name="Game" options={headerOptions} component={Game}/>
+            <GiftStack.Screen name="Profile" options={{ headerShown: false }} component={ProfileStackNavigator} />
         </GiftStack.Navigator>
     );
 };

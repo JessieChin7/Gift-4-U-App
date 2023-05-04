@@ -1,6 +1,6 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { ProfileScreen, AboutScreen, FriendListScreen, HistoryScreen, SettingScreen } from '../screens/profile';
+import { ProfileScreen, AboutScreen, FriendsListScreen, HistoryScreen, SettingScreen, FriendDetailScreen } from '../screens/profile';
 import { backOptions } from './common';
 
 const ProfileStack = createNativeStackNavigator();
@@ -8,11 +8,12 @@ const ProfileStack = createNativeStackNavigator();
 const ProfileStackNavigator: React.FC = () => {
     return (
         <ProfileStack.Navigator>
-            <ProfileStack.Screen name="Profile_Home" options={backOptions}>{ProfileScreen}</ProfileStack.Screen>
-            <ProfileStack.Screen name="About" options={backOptions}>{AboutScreen}</ProfileStack.Screen>
-            <ProfileStack.Screen name="Friend_List" options={backOptions}>{FriendListScreen}</ProfileStack.Screen>
-            <ProfileStack.Screen name="History" options={{ ...backOptions, title: '送禮與收禮紀錄' }}>{HistoryScreen}</ProfileStack.Screen>
-            <ProfileStack.Screen name="Setting" options={{ ...backOptions, title: '設定' }}>{SettingScreen}</ProfileStack.Screen>
+            <ProfileStack.Screen name="Profile_Home" options={backOptions} component={ProfileScreen} />
+            <ProfileStack.Screen name="About" options={backOptions} component={AboutScreen} />
+            <ProfileStack.Screen name="Friends_List" options={backOptions} component={FriendsListScreen} />
+            <ProfileStack.Screen name="History" options={{ ...backOptions, title: '送禮與收禮紀錄' }} component={HistoryScreen} />
+            <ProfileStack.Screen name="Setting" options={{ ...backOptions, title: '設定' }} component={SettingScreen} />
+            <ProfileStack.Screen name="Friend_Detail" options={{ ...backOptions, title: '' }} component={FriendDetailScreen} />
         </ProfileStack.Navigator>
     );
 };

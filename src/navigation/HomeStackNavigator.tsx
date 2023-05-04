@@ -10,9 +10,9 @@ const HomeStack = createNativeStackNavigator();
 const HomeStackNavigator: React.FC = () => {
     return (
         <HomeStack.Navigator>
-            <HomeStack.Screen name="Home" options={headerOptions}>{HomeScreen}</HomeStack.Screen>
-            <HomeStack.Screen name="Product" options={{ headerShown: false }}>{ProductScreen}</HomeStack.Screen>
-            <HomeStack.Screen name="Profile" options={{ headerShown: false }}>{ProfileStackNavigator}</HomeStack.Screen>
+            <HomeStack.Screen name="Home" options={headerOptions} component={HomeScreen} />
+            <HomeStack.Screen name="Product" options={{ headerShown: false }} component={ProductScreen} />
+            <HomeStack.Screen name="Profile" options={{ headerShown: false }} component={ProfileStackNavigator} />
         </HomeStack.Navigator>
     );
 };
