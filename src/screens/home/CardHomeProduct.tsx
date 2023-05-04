@@ -4,7 +4,7 @@ import { Image, Text } from "react-native-elements";
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import RNBounceable from "@freakycoder/react-native-bounceable";
 
-import { NavigatorParamList } from "../../navigation";
+import { NavigatorParamList } from "../../navigation/common";
 import { styles } from "./CardHomeProduct.style";
 
 interface CardHomeProductProps {}

@@ -3,7 +3,7 @@ import { ScrollView, View } from 'react-native';
 import { Text, Image } from "react-native-elements";
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 
-import { NavigatorParamList } from "../../navigation";
+import { NavigatorParamList } from "../../navigation/common";
 import { styles } from "./FriendListScreen.style";
 import FriendItem from "./FriendItem";
 

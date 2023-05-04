@@ -2,7 +2,7 @@ import React from "react";
 import { View, Image, TouchableOpacity } from 'react-native';
 import { Text } from "react-native-elements";
 import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { NavigatorParamList } from "../../navigation";
+import { NavigatorParamList } from "../../navigation/common";
 
 import Button from "../../components/Button";
 import { styles } from "./LoginHomeScreen.style";

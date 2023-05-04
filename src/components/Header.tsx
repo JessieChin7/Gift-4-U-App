@@ -4,7 +4,7 @@ import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { Image } from "react-native-elements";
 
 import { styles } from "./Header.style";
-import { NavigatorParamList } from "../navigation";
+import { NavigatorParamList } from "../navigation/common";
 
 export const HeaderTitle = (props: any) => {
     return (

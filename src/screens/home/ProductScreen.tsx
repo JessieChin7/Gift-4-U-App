@@ -2,7 +2,7 @@ import React from "react";
 import { View, TouchableOpacity, StatusBar } from 'react-native';
 import { Image, Text } from "react-native-elements";
 import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { NavigatorParamList } from "../../navigation";
+import { NavigatorParamList } from "../../navigation/common";
 
 import { styles } from "./ProductScreen.style";
 
