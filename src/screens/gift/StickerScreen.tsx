@@ -20,7 +20,17 @@ const StickerScreen: React.FC<StickerScreenProps> = ({ navigation }) => {
         setSelectedSticker(index);
     };
 
-    const stickerImages = Array.from({ length: 9 }, (_, i) => '../../assets/sticker${1}.png');
+    const stickerImages = [
+        require('../../assets/sticker1.png'),
+        require('../../assets/sticker2.png'),
+        require('../../assets/sticker3.png'),
+        require('../../assets/sticker4.png'),
+        require('../../assets/sticker5.png'),
+        require('../../assets/sticker6.png'),
+        require('../../assets/sticker7.png'),
+        require('../../assets/sticker8.png'),
+        require('../../assets/sticker9.png'),
+    ];
 
     return (
         <>
@@ -28,8 +38,8 @@ const StickerScreen: React.FC<StickerScreenProps> = ({ navigation }) => {
                 <Text style={styles.title}>選擇送禮通知貼圖</Text>
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', marginVertical: 40 }}>
                     {stickerImages.map((stickerImage, index) => (
-                        <TouchableOpacity key={index} onPress={() => handleStickerSelection(index)} style={{ margin: 5, borderWidth: selectedSticker === index ? 2 : 0, borderColor: '#D9D9D9', borderRadius: 5, borderStyle: 'solid' }}>
-                            <Image source={require(`../../assets/sticker3.png`)} style={{ width: 110, height: 110 }} />
+                        <TouchableOpacity key={index} onPress={() => handleStickerSelection(index)} style={{ margin: 6, padding: 8, borderWidth: selectedSticker === index ? 2 : 0, borderColor: 'gray', borderRadius: 5, borderStyle: 'solid' }}>
+                            <Image source={stickerImage} style={{ width: 100, height: 100, resizeMode: 'contain' }} />
                         </TouchableOpacity>
                     ))}
                 </View>

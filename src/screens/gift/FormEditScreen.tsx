@@ -14,12 +14,22 @@ const FormEdit: React.FC<FormEditScreenProps> = ({ navigation }) => {
     const [hints, setHints] = useState<string[]>([]);
     const [addiHints, setAddiHints] = useState<string[]>([]);
     const [newHint, setNewHint] = useState('');
+    const [selectedAnimal, setSelectedAnimal] = useState<number | null>(null);
 
+    const animalImages = [
+        require('../../assets/animal1.png'),
+        require('../../assets/animal2.png'),
+        require('../../assets/animal3.png'),
+        require('../../assets/animal4.png'),
+    ];
     const handleNextButton = () => {
         navigation.navigate('FormPreviewScreen');
     };
     const handleBackButton = () => {
         navigation.navigate('GameScreen');
+    };
+    const handleAnimalSelection = (index: number) => {
+        setSelectedAnimal(index);
     };
 
     const handleHintSelection = (hint: string) => {
@@ -52,11 +62,22 @@ const FormEdit: React.FC<FormEditScreenProps> = ({ navigation }) => {
             <View style={styles.container}>
                 <Text style={styles.title}>選擇送禮動物</Text>
                 <View style={{ display: 'flex', flexDirection: 'row', gap: 30, alignSelf: 'center', padding: 59 }}>
-                    <Button style={styles.animalButton}><Image source={require('../../assets/animal1.png')} /></Button>
-                    <Button style={styles.animalButton}><Image source={require('../../assets/animal2.png')} /></Button>
-                    <Button style={styles.animalButton}><Image source={require('../../assets/animal3.png')} /></Button>
-                    <Button style={styles.animalButton}><Image source={require('../../assets/animal4.png')} /></Button>
-                </View>
+                    {animalImages.map((animalImage, index) => (
+                        <TouchableOpacity
+                            key={index}
+                            onPress={() => handleAnimalSelection(index)}
+                            style={[
+                                styles.animalButton,
+                                {
+                                    borderWidth: selectedAnimal === index ? 2 : 0,
+                                    borderRadius: selectedAnimal === index ? 5 : 0,
+                                    borderColor: selectedAnimal === index ? 'gray' : 'transparent',
+                                },
+                            ]}
+                        >
+                            <Image source={animalImage} style={{ width: 50, height: 50, alignSelf: 'center' }} />
+                        </TouchableOpacity>
+                    ))}</View>
                 <Text style={styles.title}>提供關於自己的提示</Text>
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', marginVertical: 40, marginHorizontal: 6 }}>
                     {allHints.map((hint, index) => (
@@ -69,14 +90,24 @@ const FormEdit: React.FC<FormEditScreenProps> = ({ navigation }) => {
                                     borderRadius: 50,
                                     height: 32,
                                     backgroundColor: hints.includes(hint) ? '#000000' : '#FFFFFF',
-                                    borderColor: '#D9D99D9',
+                                    borderTintColor: "transparent",
                                     borderWidth: 1,
+                                    borderColor: "transparent",
                                     paddingHorizontal: 15,
                                     margin: 5
                                 }}
+                                highLightStyle={{
+                                    borderColor: "gray",
+                                    backgroundColor: "transparent",
+                                    textColor: "gray",
+                                    borderTintColor: "gray",
+                                    backgroundTintColor: "gray",
+                                    textTintColor: "white"
+                                }}
                                 textStyle={{
                                     fontSize: 14,
-                                    color: hints.includes(hint) ? '#FFFFFF' : '#D9D9D9',
+                                    fontWeight: 'bold',
+                                    color: hints.includes(hint) ? '#FFFFFF' : '#FFFFFF',
                                 }}
                             />
                             {/* {hints.includes(hint) && (

@@ -9,15 +9,14 @@ interface IntroScreenProps {
 }
 const IntroScreen: React.FC<IntroScreenProps> = ({ navigation }) => {
     const [currentDot, setCurrentDot] = useState(0);
-    const totalDots = 7;
+    const totalDots = 6;
     const backgroundImages = [
         require('../../assets/background1.png'),
         require('../../assets/background2.png'),
-        require('../../assets/background1.png'),
-        require('../../assets/background2.png'),
-        require('../../assets/background2.png'),
-        require('../../assets/background2.png'),
-        require('../../assets/background2.png'),
+        require('../../assets/background3.png'),
+        require('../../assets/background4.png'),
+        require('../../assets/background5.png'),
+        require('../../assets/background6.png'),
     ];
 
     const handleNextButton = () => {

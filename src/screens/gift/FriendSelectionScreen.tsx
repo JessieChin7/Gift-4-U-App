@@ -67,7 +67,7 @@ const FriendSelectionScreen: React.FC<FriendSelectionScreenProps> = ({ navigatio
 
     return (
         <View style={[styles.container]}>
-            <Text style={styles.title}>想給</Text>
+            <Text style={styles.title}>想送給</Text>
             <View style={styles.friendContainer}>
                 <Controller
                     name="friend"

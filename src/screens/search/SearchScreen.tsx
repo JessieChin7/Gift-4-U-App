@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Text } from "react-native-elements";
 import { View, Image, TouchableOpacity, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-
 import { styles } from "./SearchScreen.style";
 
 interface SearchScreenProps { }

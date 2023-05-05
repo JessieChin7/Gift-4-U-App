@@ -32,4 +32,20 @@ export const styles = StyleSheet.create({
         padding: 14,
         marginVertical: 60,
     },
+    giftsContainer: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        justifyContent: "center",
+    },
+    giftItem: {
+        margin: 10,
+        alignItems: "center",
+    },
+    giftImage: {
+        width: 100,
+        height: 100,
+    },
+    giftTitle: {
+        marginTop: 5,
+    },
 });

@@ -2,12 +2,14 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
     container: {
-        flex: 1,
         backgroundColor: '#fff',
-        alignItems: 'center',
+        alignItems: 'stretch',
+        flex: 1,
+    },
+    titleContainer: {
+        flex: 1,
     },
     title: {
-        position: 'absolute',
         width: 161,
         height: 37,
         left: 56,
@@ -19,12 +21,11 @@ export const styles = StyleSheet.create({
         color: '#000000',
 
     },
+    scrollViewContainer: {
+        flex: 3,
+    },
     scrollView: {
-        position: 'absolute',
-        width: 317,
-        height: 'auto',
-        left: 41,
-        top: 206,
+        paddingHorizontal: 41,
     },
     checkBoxContainer: {
         backgroundColor: '#D9D9D9',

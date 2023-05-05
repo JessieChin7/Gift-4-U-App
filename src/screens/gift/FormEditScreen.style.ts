@@ -35,11 +35,15 @@ export const styles = StyleSheet.create({
     animalButton: {
         width: 56,
         height: 56,
+        padding: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     input: {
         width: 205.28,
         height: 43.99,
         backgroundColor: '#D9D9D9',
         padding: 14,
+        borderRadius: 5,
     },
 });
