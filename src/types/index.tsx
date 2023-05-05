@@ -11,7 +11,7 @@ export const TABS = {
 export const PROFILES = {
     HOME: "Profile_Home",
     ABOUT: "About",
-    FRIEND_LIST: "Friend_List",
+    FRIENDS_LIST: "Friends_List",
     HISTORY: "History",
     SETTING: "Setting",
 }

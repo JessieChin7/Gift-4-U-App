@@ -1,80 +1,24 @@
-import React from "react";
-import Icon, { IconType } from "react-native-dynamic-vector-icons";
+import React, { useState } from "react";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import { SCREENS, APP_NAME } from "../types";
-
-import HomeScreen from "../screens/home/HomeScreen";
-import GiftStackNavigator from "../screens/gift/GiftStackNavigator";
-import SearchScreen from "../screens/search/SearchScreen";
-import ShopScreen from "../screens/shop/ShopScreen";
-
+import TabNavigator from "./TabNavigator";
+import WelcomeStackNavigator from "./WelcomeStackNavigator";
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
+
 const Navigation = () => {
-
-  const renderTabIcon = (
-    route: any,
-    focused: boolean,
-    color: string,
-    size: number,
-  ) => {
-    let iconName = "home";
-    switch (route.name) {
-      case SCREENS.HOME:
-        iconName = focused ? "home" : "home-outline";
-        break;
-      case SCREENS.GIFT:
-        iconName = focused ? "gift" : "gift-outline";
-        break;
-      case SCREENS.SEARCH:
-        iconName = focused ? "search" : "search-outline";
-        break;
-      case SCREENS.SHOP:
-        iconName = focused ? "cart" : "cart-outline";
-        break;
-      default:
-        iconName = focused ? "home" : "home-outline";
-        break;
-    }
-    return (
-      <Icon
-        name={iconName}
-        type={IconType.Ionicons}
-        size={size}
-        color={color}
-      />
-    );
-  };
-
-  const renderTabNavigation = () => {
-    return (
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          headerShown: false,
-          tabBarIcon: ({ focused, color, size }) =>
-            renderTabIcon(route, focused, color, size),
-          tabBarActiveTintColor: "#667080",
-          tabBarInactiveTintColor: "#e8ecf4",
-          tabBarShowLabel: false,
-        })}
-      >
-        <Tab.Screen name={SCREENS.HOME} component={HomeScreen} />
-        <Tab.Screen name={SCREENS.GIFT} component={GiftStackNavigator} />
-        <Tab.Screen name={SCREENS.SEARCH} component={SearchScreen} />
-        <Tab.Screen name={SCREENS.SHOP} component={ShopScreen} />
-      </Tab.Navigator>
-    );
-  };
+  // TODO: localstorage for first time tutorial
+  const [userToken, setUserToken] = useState('123')
 
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name={APP_NAME}>{renderTabNavigation}</Stack.Screen>
+      <Stack.Navigator>
+        {userToken === '' && <Stack.Screen name="Welcome_Navigator" options={{ headerShown: false }} component={WelcomeStackNavigator} />}
+        <Stack.Screen name="Tab_Navigator" options={{ headerShown: false }} component={TabNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
   );

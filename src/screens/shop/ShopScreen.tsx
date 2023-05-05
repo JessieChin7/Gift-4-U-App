@@ -1,8 +1,8 @@
 import React from "react";
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { Text } from "react-native-elements";
+import CardCartProduct from "./CardCartProduct";
 
-import { StatusBar } from 'expo-status-bar';
 
 import { styles } from "./ShopScreen.style";
 
@@ -11,8 +11,19 @@ interface ShopScreenProps {}
 const ShopScreen: React.FC<ShopScreenProps> = () => {
   return (
     <View style={styles.container}>
-      <Text>Shop</Text>
-      <StatusBar style="auto" />
+
+
+      <ScrollView style={styles.scrollViewContainer} showsVerticalScrollIndicator={false}>
+        <Text style={styles.textHeading}>願望清單</Text>
+        <View style={styles.divider}/>
+        <CardCartProduct />
+        <CardCartProduct />
+        <CardCartProduct />
+        <CardCartProduct />
+        <CardCartProduct />
+        <CardCartProduct />
+        <CardCartProduct />
+      </ScrollView>
     </View>
   );
 };
