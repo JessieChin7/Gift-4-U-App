@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { View, Image, TouchableOpacity, Modal } from 'react-native';
-// import Modal from 'react-native-modal';
+import { View, Image, TouchableOpacity, Modal, TextInput } from 'react-native';
 import { Text } from "react-native-elements";
-import { CheckBox, Input } from 'react-native-elements';
+import Checkbox from 'expo-checkbox';
 import { Button } from 'react-native-paper';
-import { StatusBar } from 'expo-status-bar';
 import { styles } from './GameScreen.style';
 import * as Haptics from 'expo-haptics';
 import { ScrollView } from 'react-native';
@@ -103,74 +101,97 @@ const GameScreen: React.FC<GameScreenProps> = ({ navigation }) => {
                     {items.map((item) => (
                         <>
                             <View key={item.id} style={styles.checkBoxContainer}>
-                                <CheckBox
-                                    uncheckedIcon="circle-o"
-                                    containerStyle={{ backgroundColor: 'transparent', borderWidth: 0 }}
-                                    textStyle={styles.checkBoxTitle}
-                                    style={styles.checkButton}
-                                    title={item.title}
-                                    checked={checkedItems.includes(item.id)}
-                                    onPress={() => toggleChecked(item.id)}
-                                />
+                                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 32 }}>
+                                    <Checkbox
+                                        style={styles.radioButton}
+                                        value={checkedItems.includes(item.id)}
+                                        onValueChange={() => toggleChecked(item.id)}
+                                        color={checkedItems.includes(item.id) ? '#667080' : '#667080'}
+                                    />
+                                    <Text style={styles.checkBoxTitle}>{item.title}</Text>
+                                    <TouchableOpacity
+                                        style={styles.previewButton}
+                                        activeOpacity={1}
+                                        onLongPress={() => onPreviewButtonLongPress(itemImages[item.id])}
+                                        onPressOut={onPreviewButtonRelease}
+                                    >
+                                        <Text style={{ color: "#FFFFFF", fontSize: 12, fontWeight: "bold" }}>
+                                            預覽
+                                        </Text>
+                                    </TouchableOpacity>
+                                </View>
 
-                                <TouchableOpacity
-                                    style={styles.previewButton}
-                                    activeOpacity={1}
-                                    onLongPress={() => onPreviewButtonLongPress(itemImages[item.id])}
-                                    onPressOut={onPreviewButtonRelease}
-                                >
-                                    <Text style={{ color: "#FFFFFF", fontSize: 12, fontWeight: "bold" }}>
-                                        預覽
-                                    </Text>
-                                </TouchableOpacity>
-                            </View>
-                            {item.id === 1 && expandedItems[item.id] && (
-                                <Text style={{ color: "#000000", fontSize: 15, fontWeight: "bold", textAlign: "center", paddingBottom: 13 }}>
-                                    請輸入價格區間（NTD$）：
-                                </Text>
-                            )}
-                            {item.id === 2 && expandedItems[item.id] && (
-                                <View style={{ alignItems: 'center', }}>
-                                    <Text style={{ color: "#000000", fontSize: 15, fontWeight: "bold", textAlign: "center", paddingBottom: 13 }}>
-                                        請選擇最少一種收禮方式：
-                                    </Text>
-                                    {detailReceiveItem.map((Ritem) => (
-                                        <Button key={Ritem.id} style={styles.detailBoxContainer}>
-                                            <CheckBox
-                                                uncheckedIcon="circle-o"
-                                                containerStyle={{ backgroundColor: 'transparent', borderWidth: 0 }}
-                                                textStyle={styles.detailBoxTitle}
-                                                style={styles.detailItem}
-                                                title={Ritem.title}
-                                                checked={checkeRItems.includes(Ritem.id)}
+                            </View >
+                            {
+                                item.id === 1 && expandedItems[item.id] && (
+                                    <View style={{ alignItems: 'center' }}>
+                                        <Text style={{ color: "#000000", fontSize: 15, fontWeight: "bold", textAlign: "center", paddingBottom: 13 }}>
+                                            請輸入價格區間（NTD$）：
+                                        </Text>
+                                        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 32 }}>
+                                            <TextInput style={styles.input}>
+
+                                            </TextInput>
+                                            <Text style={{ color: "#000000", fontSize: 15, fontWeight: "bold", textAlign: "center", textAlignVertical: "center", paddingBottom: 13 }}>
+                                                ~
+                                            </Text>
+                                            <TextInput style={styles.input}>
+
+                                            </TextInput>
+                                        </View>
+                                    </View>
+                                )
+                            }
+                            {
+                                item.id === 2 && expandedItems[item.id] && (
+
+                                    <View style={{ alignItems: 'center' }}>
+                                        <Text style={{ color: "#000000", fontSize: 15, fontWeight: "bold", textAlign: "center", paddingBottom: 13 }}>
+                                            請選擇最少一種收禮方式：
+                                        </Text>
+                                        {detailReceiveItem.map((Ritem) => (
+                                            <TouchableOpacity
+                                                key={Ritem.id}
+                                                style={[
+                                                    styles.detailBoxContainer,
+                                                    {
+                                                        borderWidth: checkeRItems.includes(Ritem.id) ? 1 : 0,
+                                                        borderColor: checkeRItems.includes(Ritem.id) ? '#667080' : 'transparent',
+                                                    },
+                                                ]}
                                                 onPress={() => toggleRChecked(Ritem.id)}
-                                            />
-                                        </Button>
-                                    ))}
-                                </View>
-                            )}
-                            {item.id === 3 && expandedItems[item.id] && (
-                                <View style={{ alignItems: 'center', }}>
-                                    <Text style={{ color: "#000000", fontSize: 15, fontWeight: "bold", textAlign: "center", paddingBottom: 13 }}>
-                                        請選擇最少一種包裝方式：
-                                    </Text>
-                                    {detailPackItem.map((Pitem) => (
-                                        <Button key={Pitem.id} style={styles.detailBoxContainer}>
-                                            <CheckBox
-                                                uncheckedIcon="circle-o"
-                                                containerStyle={{ backgroundColor: 'transparent', borderWidth: 0 }}
-                                                textStyle={styles.detailBoxTitle}
-                                                style={styles.detailItem}
-                                                title={Pitem.title}
-                                                checked={checkedPItems.includes(Pitem.id)}
+                                            >
+                                                <Text style={styles.detailBoxTitle}>{Ritem.title}</Text>
+                                            </TouchableOpacity>
+                                        ))}
+                                    </View>
+                                )
+                            }
+                            {
+                                item.id === 3 && expandedItems[item.id] && (
+                                    <View style={{ alignItems: 'center' }}>
+                                        <Text style={{ color: "#000000", fontSize: 15, fontWeight: "bold", textAlign: "center", paddingBottom: 13 }}>
+                                            請選擇最少一種包裝方式：
+                                        </Text>
+                                        {detailPackItem.map((Pitem) => (
+                                            <TouchableOpacity
+                                                key={Pitem.id}
+                                                style={[
+                                                    styles.detailBoxContainer,
+                                                    {
+                                                        borderWidth: checkedPItems.includes(Pitem.id) ? 1 : 0,
+                                                        borderColor: checkedPItems.includes(Pitem.id) ? '#667080' : 'transparent',
+                                                    },
+                                                ]}
                                                 onPress={() => togglePChecked(Pitem.id)}
-                                            />
-                                        </Button>
-                                    ))}
-                                </View>
+                                            >
+                                                <Text style={styles.detailBoxTitle}>{Pitem.title}</Text>
+                                            </TouchableOpacity>
+                                        ))}
+                                    </View>
+                                )
+                            }
 
-
-                            )}
                         </>
                     ))
                     }

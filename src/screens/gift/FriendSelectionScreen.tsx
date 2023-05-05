@@ -3,6 +3,7 @@ import {
     View,
     Text,
     Image,
+    Animated,
 } from "react-native";
 import { Button } from 'react-native-paper';
 import { StatusBar } from 'expo-status-bar';
@@ -37,7 +38,17 @@ const FriendSelectionScreen: React.FC<FriendSelectionScreenProps> = ({ navigatio
         navigation.navigate('GameScreen');
     };
     const { handleSubmit, control } = useForm();
+    const [arrowRotation, setArrowRotation] = useState(new Animated.Value(0));
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+    const toggleArrowRotation = () => {
+        setIsDropdownOpen(!isDropdownOpen);
+        Animated.timing(arrowRotation, {
+            toValue: isDropdownOpen ? 0 : 1,
+            duration: 300,
+            useNativeDriver: false,
+        }).start();
+    };
     const renderDropdownRow = (rowData: FriendOption, rowID: string, highlighted: boolean) => {
         return (
             <View style={styles.dropdownItem}>
@@ -67,21 +78,39 @@ const FriendSelectionScreen: React.FC<FriendSelectionScreenProps> = ({ navigatio
                             options={friends}
                             renderRow={renderDropdownRow}
                             onSelect={onDropdownSelect}
-                            style={{ position: 'relative', left: 67, top: 21 }}
+                            style={{ position: 'relative', left: 67, top: 4, backgroundColor: 'transparent' }}
                             dropdownStyle={styles.dropdown}
-                        ><Text>選擇好友</Text></ModalDropdown>
+                            onDropdownWillShow={toggleArrowRotation}
+                            onDropdownWillHide={toggleArrowRotation}
+                        >
+                            <View style={{ display: 'flex', flexDirection: 'row', width: 180, left: -50, top: 10, alignItems: 'center', justifyContent: 'space-between' }}>
+                                <Image source={require('../../assets/group.png')} /><Text>選擇好友</Text><Animated.Image
+                                    source={require('../../assets/arrow.png')}
+                                    style={{
+                                        transform: [
+                                            {
+                                                rotate: arrowRotation.interpolate({
+                                                    inputRange: [0, 1],
+                                                    outputRange: ['0deg', '180deg'],
+                                                }),
+                                            },
+                                        ],
+                                    }}
+                                />
+                            </View>
+                        </ModalDropdown>
                     )}
                 />
             </View>
             <View style={[styles.radioGroup]}>
-                <View style={{ flexDirection: 'row' }}>
+                <View style={{ flexDirection: 'row', }}>
                     <Checkbox
                         style={styles.radioButton}
                         value={isAnonymousSelected}
                         onValueChange={setIsAnonymousSelected}
                         color={isAnonymousSelected ? '#898989' : undefined}
                     />
-                    <Text>匿名</Text>
+                    <Text style={{ marginHorizontal: 32 }}>匿名</Text>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
                     <Checkbox
@@ -90,7 +119,7 @@ const FriendSelectionScreen: React.FC<FriendSelectionScreenProps> = ({ navigatio
                         onValueChange={setIsRealSelected}
                         color={isRealSelected ? '#898989' : undefined}
                     />
-                    <Text>真名（開發中）</Text>
+                    <Text style={{ marginHorizontal: 32 }}>真名（開發中）</Text>
                 </View>
             </View>
             <Button onPress={handleNextButton} style={styles.nextButton}>

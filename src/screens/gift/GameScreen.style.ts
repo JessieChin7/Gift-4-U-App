@@ -93,7 +93,14 @@ export const styles = StyleSheet.create({
         height: 35,
         backgroundColor: '#D9D9D9',
         borderRadius: 50,
-
+    },
+    input: {
+        width: 57,
+        height: 20,
+        backgroundColor: '#D9D9D9',
+        borderRadius: 5,
+        padding: 2,
+        textAlign: 'center',
     },
     modalOverlay: {
         flex: 1,
@@ -106,6 +113,16 @@ export const styles = StyleSheet.create({
         width: "90%",
         height: "60%",
         resizeMode: "contain",
+    },
+    radioButton: {
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        width: 20,
+        height: 18,
+        backgroundColor: '#D9D9D9',
+        borderRadius: 50,
+        borderColor: 'transparent',
+
     },
 
 });

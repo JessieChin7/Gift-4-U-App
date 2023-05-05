@@ -27,6 +27,8 @@ export const styles = StyleSheet.create({
         top: 195,
         backgroundColor: '#D9D9D9',
         borderRadius: 50,
+        borderWidth: 0,
+        borderColor: 'transparent',
 
     },
     dropdown: {
@@ -52,6 +54,7 @@ export const styles = StyleSheet.create({
         backgroundColor: '#DADADA',
         borderRadius: 30,
         borderWidth: 0,
+        borderColor: 'transparent',
 
     },
     dropdownItemTitle: {
@@ -63,7 +66,7 @@ export const styles = StyleSheet.create({
         textAlign: 'center',
         backgroundColor: 'transparent',
         borderWidth: 0,
-
+        borderColor: 'transparent',
     },
     friendImage: {
         width: 37,
@@ -72,6 +75,7 @@ export const styles = StyleSheet.create({
         marginLeft: 10,
         norepeat: 'no-repeat',
         border: 'none',
+        borderColor: 'transparent',
     },
     radioGroup: {
         position: 'absolute',
@@ -98,7 +102,7 @@ export const styles = StyleSheet.create({
         position: 'absolute',
         width: 75,
         height: 35,
-        left: 304,
+        left: 284,
         top: 391,
         backgroundColor: '#D9D9D9',
         borderRadius: 50,
