@@ -3,13 +3,29 @@ import React, { useState } from 'react';
 import { Text } from "react-native-elements";
 import { Button } from 'react-native-paper';
 import { styles } from './FormEditScreen.style';
-import {
-    SelectMultipleButton,
-    SelectMultipleGroupButton
-} from "react-native-selectmultiple-button";
 interface FormEditScreenProps {
     navigation: any;
 }
+interface CustomCheckboxItemProps {
+    label: string;
+    selected: boolean;
+    onPress: () => void;
+    labelStyle: any;
+    style: any;
+}
+
+const CustomCheckboxItem: React.FC<CustomCheckboxItemProps> = ({
+    label,
+    selected,
+    onPress,
+    labelStyle,
+    style,
+}) => (
+    <TouchableOpacity onPress={onPress} style={[style, { backgroundColor: selected ? '#000000' : '#D9D9D9', },]}>
+        <Text style={labelStyle}>{label}</Text>
+    </TouchableOpacity>
+);
+
 const FormEdit: React.FC<FormEditScreenProps> = ({ navigation }) => {
     const [hints, setHints] = useState<string[]>([]);
     const [addiHints, setAddiHints] = useState<string[]>([]);
@@ -82,39 +98,23 @@ const FormEdit: React.FC<FormEditScreenProps> = ({ navigation }) => {
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', marginVertical: 40, marginHorizontal: 6 }}>
                     {allHints.map((hint, index) => (
                         <View key={index} style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <SelectMultipleButton
-                                value={hint}
-                                singleTap={() => handleHintSelection(hint)}
+                            <CustomCheckboxItem
+                                label={hint}
                                 selected={hints.includes(hint)}
-                                buttonViewStyle={{
-                                    borderRadius: 50,
-                                    height: 32,
-                                    backgroundColor: hints.includes(hint) ? '#000000' : '#FFFFFF',
-                                    borderTintColor: "transparent",
-                                    borderWidth: 1,
-                                    borderColor: "transparent",
-                                    paddingHorizontal: 15,
-                                    margin: 5
-                                }}
-                                highLightStyle={{
-                                    borderColor: "gray",
-                                    backgroundColor: "transparent",
-                                    textColor: "gray",
-                                    borderTintColor: "gray",
-                                    backgroundTintColor: "gray",
-                                    textTintColor: "white"
-                                }}
-                                textStyle={{
+                                onPress={() => handleHintSelection(hint)}
+                                labelStyle={{
                                     fontSize: 14,
                                     fontWeight: 'bold',
                                     color: hints.includes(hint) ? '#FFFFFF' : '#FFFFFF',
                                 }}
+                                style={{
+                                    borderRadius: 50,
+                                    height: 32,
+                                    paddingHorizontal: 15,
+                                    margin: 5,
+                                    justifyContent: 'center',
+                                }}
                             />
-                            {/* {hints.includes(hint) && (
-                                <TouchableOpacity onPress={() => handleDeleteHint(hint)}>
-                                    <Text style={{ fontSize: 10, fontWeight: 'bold', marginLeft: -12, marginBottom: 20 }}>×</Text>
-                                </TouchableOpacity>
-                            )} */}
                         </View>
                     ))}
                 </View>

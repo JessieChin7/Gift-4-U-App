@@ -27,9 +27,9 @@ interface FriendOption {
 const FriendSelectionScreen: React.FC<FriendSelectionScreenProps> = ({ navigation }) => {
     const [selectedFriend, setSelectedFriend] = useState<FriendOption | null>(null);
     const [friends, setFriend] = useState<FriendOption[]>([
-        { label: "ming", value: "ming", image: images },
-        { label: "mei", value: "mei", image: images },
-        { label: "perry", value: "perry", image: images },
+        { label: "小明", value: "小明", image: images },
+        { label: "中明", value: "中明", image: images },
+        { label: "大明", value: "大明", image: images },
     ]);
     // const [isAnonymous, setIsAnonymous] = useState('anonymous');
     const [isAnonymousSelected, setIsAnonymousSelected] = useState(false);
@@ -84,7 +84,23 @@ const FriendSelectionScreen: React.FC<FriendSelectionScreenProps> = ({ navigatio
                             onDropdownWillHide={toggleArrowRotation}
                         >
                             <View style={{ display: 'flex', flexDirection: 'row', width: 180, left: -50, top: 10, alignItems: 'center', justifyContent: 'space-between' }}>
-                                <Image source={require('../../assets/group.png')} /><Text>選擇好友</Text><Animated.Image
+                                {selectedFriend ? (
+                                    <>
+                                        <Image source={selectedFriend.image} style={[styles.friendImage, { left: 6, bottom: 2 }]} />
+                                        <Text style={{
+                                            fontStyle: 'normal',
+                                            fontWeight: '600',
+                                            fontSize: 14,
+                                            textAlign: 'center',
+                                            right: 10,
+                                        }}>{selectedFriend.label}</Text>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Image source={require('../../assets/group.png')} />
+                                        <Text>選擇好友</Text>
+                                    </>
+                                )}<Animated.Image
                                     source={require('../../assets/arrow.png')}
                                     style={{
                                         transform: [
@@ -118,6 +134,7 @@ const FriendSelectionScreen: React.FC<FriendSelectionScreenProps> = ({ navigatio
                         value={isRealSelected}
                         onValueChange={setIsRealSelected}
                         color={isRealSelected ? '#898989' : undefined}
+                        disabled={true}
                     />
                     <Text style={{ marginHorizontal: 32 }}>真名（開發中）</Text>
                 </View>

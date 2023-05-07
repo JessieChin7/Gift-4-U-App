@@ -73,8 +73,6 @@ export const styles = StyleSheet.create({
         height: 37,
         marginRight: 10,
         marginLeft: 10,
-        norepeat: 'no-repeat',
-        border: 'none',
         borderColor: 'transparent',
     },
     radioGroup: {
@@ -86,7 +84,6 @@ export const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'space-between',
         marginTop: 20,
-
     },
     radioButton: {
         flexDirection: 'row',
