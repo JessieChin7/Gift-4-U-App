@@ -13,7 +13,7 @@ const StickerScreen: React.FC<StickerScreenProps> = ({ navigation }) => {
         navigation.navigate('FinishScreen');
     };
     const handleBackButton = () => {
-        navigation.navigate('FormPreviewScreen');
+        navigation.navigate('FormEditScreen');
     };
 
     const handleStickerSelection = (index: number) => {

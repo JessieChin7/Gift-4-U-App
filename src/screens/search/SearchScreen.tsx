@@ -3,15 +3,18 @@ import { Text } from "react-native-elements";
 import { View, Image, TouchableOpacity, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { styles } from "./SearchScreen.style";
-
-interface SearchScreenProps { }
-
-const SearchScreen: React.FC<SearchScreenProps> = () => {
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { NavigatorParamList } from "../../navigation/common";
+interface ResultScreenProps { }
+const SearchScreen: React.FC<ResultScreenProps> = () => {
+  const navigation = useNavigation<NavigationProp<NavigatorParamList>>();
   const [searchTerm, setSearchTerm] = useState<string>('');
 
   const handleSearch = () => {
     console.log("search term：", searchTerm);
+    navigation.navigate('Result');
   };
+
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

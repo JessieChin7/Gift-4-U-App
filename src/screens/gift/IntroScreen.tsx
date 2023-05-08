@@ -9,21 +9,20 @@ interface IntroScreenProps {
 }
 const IntroScreen: React.FC<IntroScreenProps> = ({ navigation }) => {
     const [currentDot, setCurrentDot] = useState(0);
-    const totalDots = 6;
+    const totalDots = 5;
     const backgroundImages = [
-        require('../../assets/background1.png'),
-        require('../../assets/background2.png'),
-        require('../../assets/background3.png'),
-        require('../../assets/background4.png'),
-        require('../../assets/background5.png'),
-        require('../../assets/background6.png'),
+        require('../../assets/Welcome.png'),
+        require('../../assets/Welcome-1.png'),
+        require('../../assets/Welcome-2.png'),
+        require('../../assets/Welcome-3.png'),
+        require('../../assets/Welcome-4.png'),
     ];
 
     const handleNextButton = () => {
         if (currentDot < totalDots - 1) {
             setCurrentDot(currentDot + 1);
         } else {
-            navigation.navigate('FriendSelection');
+            navigation.navigate('ChatRoomScreen');
         }
     };
 

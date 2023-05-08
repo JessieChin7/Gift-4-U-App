@@ -39,7 +39,7 @@ const FormEdit: React.FC<FormEditScreenProps> = ({ navigation }) => {
         require('../../assets/animal4.png'),
     ];
     const handleNextButton = () => {
-        navigation.navigate('FormPreviewScreen');
+        navigation.navigate('StickerScreen');
     };
     const handleBackButton = () => {
         navigation.navigate('GameScreen');
