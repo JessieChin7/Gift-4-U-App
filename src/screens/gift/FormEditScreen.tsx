@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Text } from "react-native-elements";
 import { Button } from 'react-native-paper';
 import { styles } from './FormEditScreen.style';
+import { useAppContext } from '../../context/AppContext';
 interface FormEditScreenProps {
     navigation: any;
 }
@@ -30,13 +31,12 @@ const FormEdit: React.FC<FormEditScreenProps> = ({ navigation }) => {
     const [hints, setHints] = useState<string[]>([]);
     const [addiHints, setAddiHints] = useState<string[]>([]);
     const [newHint, setNewHint] = useState('');
-    const [selectedAnimal, setSelectedAnimal] = useState<number | null>(null);
-
+    // const [selectedAnimal, setSelectedAnimal] = useState<number | null>(null);
+    const { selectedAnimal, setSelectedAnimal } = useAppContext();
     const animalImages = [
-        require('../../assets/animal1.png'),
-        require('../../assets/animal2.png'),
-        require('../../assets/animal3.png'),
-        require('../../assets/animal4.png'),
+        require('../../assets/animal_kawauso_juggling.png'),
+        require('../../assets/animal_kowai_kaba.png'),
+        require('../../assets/animal_wallaby_kangaroo.png'),
     ];
     const handleNextButton = () => {
         navigation.navigate('StickerScreen');
@@ -91,7 +91,7 @@ const FormEdit: React.FC<FormEditScreenProps> = ({ navigation }) => {
                                 },
                             ]}
                         >
-                            <Image source={animalImage} style={{ width: 50, height: 50, alignSelf: 'center' }} />
+                            <Image source={animalImage} style={{ width: 75, height: 75, alignSelf: 'center' }} />
                         </TouchableOpacity>
                     ))}</View>
                 <Text style={styles.title}>提供關於自己的提示</Text>

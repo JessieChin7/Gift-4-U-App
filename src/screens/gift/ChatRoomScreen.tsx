@@ -9,27 +9,32 @@ import {
 } from 'react-native';
 import { Button } from 'react-native-paper';
 import { styles } from './ChatRoomScreen.style';
-
+import { useAppContext } from '../../context/AppContext';
 interface ChatRoomScreenProps {
     navigation: any;
 }
+interface FriendOption {
+    label: string;
+    value: string;
+    image: any;
+}
 
 const ChatRoomScreen: React.FC<ChatRoomScreenProps> = ({ navigation }) => {
-    const [chatRooms, setChatRooms] = useState<string[]>([
-        // '小明',
-        '中明',
-        '大明',
+    const [chatRooms, setChatRooms] = useState<FriendOption[]>([
+        // { label: "小明", value: "小明", image: require('../../assets/little-ming.png') },
+        { label: "中明", value: "中明", image: require('../../assets/medium-ming.png') },
+        { label: "大明", value: "大明", image: require('../../assets/big-ming.png') },
     ]);
 
     const [searchText, setSearchText] = useState('');
 
     const handleAddChatRoom = () => {
-        setChatRooms([...chatRooms, `Chat Room ${chatRooms.length + 1}`]);
+        // setChatRooms([...chatRooms, `Chat Room ${chatRooms.length + 1}`]);
         navigation.navigate('FriendSelection');
     };
 
     const filteredChatRooms = chatRooms.filter((chatRoom) =>
-        chatRoom.toLowerCase().includes(searchText.toLowerCase())
+        chatRoom.label.toLowerCase().includes(searchText.toLowerCase())
     );
 
     return (
@@ -67,12 +72,12 @@ const ChatRoomScreen: React.FC<ChatRoomScreenProps> = ({ navigation }) => {
                         }}
                     // onPress={() => navigation.navigate('GameScreen')}
                     >
-                        <Image source={require('../../assets/ming.png')} style={[styles.friendImage]} />
-                        <Text style={[styles.friendName]}>{item}</Text>
+                        <Image source={item.image} style={[styles.friendImage]} />
+                        <Text style={[styles.friendName]}>{item.label}</Text>
                         <Text style={[styles.dateText]}>03 FEB</Text>
                     </TouchableOpacity>
                 )}
-                keyExtractor={(item) => item}
+            // keyExtractor={(item) => item}
             />
             <Button
                 mode="contained"

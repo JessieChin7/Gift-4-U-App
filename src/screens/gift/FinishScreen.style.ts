@@ -54,10 +54,12 @@ export const styles = StyleSheet.create({
     selfMessage: {
         backgroundColor: '#FFFFFF',
         alignSelf: 'flex-end',
+
     },
     otherMessage: {
         backgroundColor: '#D9D9D9',
         alignSelf: 'flex-start',
+        marginLeft: 30,
     },
     textInput: {
         height: 55,
@@ -75,5 +77,19 @@ export const styles = StyleSheet.create({
         marginHorizontal: 10,
         backgroundColor: '#D9D9D9',
         borderRadius: 5,
+    },
+    otherInfo: {
+        flexDirection: "row",
+        alignItems: "center",
+        marginLeft: 10,
+    },
+    friendAvatarSmall: {
+        width: 30,
+        height: 30,
+        borderRadius: 15,
+        marginRight: 5,
+    },
+    friendNameSmall: {
+        fontWeight: "bold",
     },
 });
