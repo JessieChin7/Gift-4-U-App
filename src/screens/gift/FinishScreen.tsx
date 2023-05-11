@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
     View,
     Text,
@@ -17,12 +17,40 @@ interface Message {
     id: number;
     content: string | null;
     sticker: number | null;
-    sender: 'self' | 'other';
+    sender: 'self' | 'other' | 'gameResult';
 }
 
 const FinishScreen: React.FC<FinishScreenProps> = ({ navigation }) => {
-    const { selectedSticker } = useAppContext();
-    const { selectedAnimal } = useAppContext();
+    const { selectedSticker, selectedAnimal, checkedItems, checkeRItems, checkedPItems, showMingChatRoom, setShowMingChatRoom } = useAppContext();
+    const animalNames = [
+        "海獺",
+        "河馬",
+        "袋鼠",
+    ];
+    const [messages, setMessages] = useState<Message[]>([
+        {
+            id: 0,
+            content: selectedAnimal !== null ? `你收到來自${animalNames[selectedAnimal]}的收禮邀約` : "",
+            sticker: null,
+            sender: "self",
+        },
+        { id: 1, content: null, sticker: selectedSticker, sender: 'self' },
+        { id: 2, content: '點擊此訊息查看', sticker: null, sender: 'self' },
+    ]);
+    const [inputText, setInputText] = useState('');
+    const flatListRef = useRef<FlatList>(null);
+    // 每次 messages 更新後，自動捲動到最底部
+    useEffect(() => {
+        if (flatListRef.current) {
+            flatListRef.current.scrollToEnd({ animated: false });
+        }
+    }, [messages]);
+
+
+    const [guessedName, setGuessedName] = useState('小王');
+    console.log('chekcedItems: ', checkedItems);
+    console.log('chekcedRItems: ', checkeRItems);
+    console.log('chekcedPItems: ', checkedPItems);
     const stickerImages = [
         require('../../assets/sticker1.png'),
         require('../../assets/sticker2.png'),
@@ -34,23 +62,10 @@ const FinishScreen: React.FC<FinishScreenProps> = ({ navigation }) => {
         require('../../assets/sticker8.png'),
         require('../../assets/sticker9.png'),
     ];
-    const animalMessages = [
-        "你收到來自海獺的收禮邀約！",
-        "你收到來自河馬的收禮邀約！",
-        "你收到來自袋鼠的收禮邀約！",
-    ];
 
-    const [messages, setMessages] = useState<Message[]>([
-        {
-            id: 0,
-            content: selectedAnimal !== null ? animalMessages[selectedAnimal] : "",
-            sticker: null,
-            sender: "self",
-        },
-        { id: 1, content: null, sticker: selectedSticker, sender: 'self' },
-        { id: 2, content: '點擊此訊息查看', sticker: null, sender: 'self' },
-    ]);
-    const [inputText, setInputText] = useState('');
+
+
+
 
     const handleBackButton = () => {
         navigation.navigate('StickerScreen');
@@ -62,16 +77,59 @@ const FinishScreen: React.FC<FinishScreenProps> = ({ navigation }) => {
             setInputText('');
         }
     };
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setMessages([
-                ...messages,
-                { id: messages.length, content: '我猜你是小王', sticker: null, sender: 'other' },
-            ]);
-        }, 3000);
 
-        return () => clearTimeout(timer);
+    const handleButtonClick = (response: 'correct' | 'wrong') => {
+        // 你可以在這裡添加其他的邏輯，例如根據回應來更新 guessedName
+        setMessages([...messages, { id: messages.length, content: '點擊察看結果！', sticker: null, sender: 'self' }]);
+    };
+
+
+    useEffect(() => {
+        const gameResultTimer = setTimeout(() => {
+            const randomRItem = checkeRItems[Math.floor(Math.random() * checkeRItems.length)];
+            const randomPItem = checkedPItems[Math.floor(Math.random() * checkedPItems.length)];
+            let content = `*遊戲結果*\n`;
+            for (const item of checkedItems) {
+                if (item.id === 1) {
+                    content += `價格：\n100-300元\n`;
+                } else if (item.id === 2 && selectedAnimal != null) {
+                    if (randomRItem.id === 1) {
+                        content += `收禮方式：\n${animalNames[selectedAnimal]}會親自送禮給你\n`;
+                    }
+                    else if (randomRItem.id === 2) {
+                        content += `收禮方式：\n${animalNames[selectedAnimal]}會請親自你去找他拿驚喜禮物\n`;
+                    }
+                    else if (randomRItem.id === 3) {
+                        content += `收禮方式：\n${animalNames[selectedAnimal]}會透過神秘朋友將禮物送給你\n`;
+                    }
+                } else if (item.id === 3 && selectedAnimal != null) {
+                    if (randomPItem.id === 1) {
+                        content += `包裝方式：\n${animalNames[selectedAnimal]}會以精緻的方式包裝禮物給你\n`;
+                    }
+                    else if (randomPItem.id === 2) {
+                        content += `包裝方式：\n${animalNames[selectedAnimal]}會以隨便的方式包裝禮物給你\n`;
+                    }
+                    else if (randomPItem.id === 3) {
+                        content += `包裝方式：\n${animalNames[selectedAnimal]}會以不包裝形式送禮物給你\n`;
+                    }
+                } else if (item.id === 4) {
+                    continue;
+                }
+            }
+            content += `\n*我想要*\n帽踢、不要吃的`;
+            setMessages((prevMessages) => [...prevMessages, { id: prevMessages.length, content: content, sticker: null, sender: 'gameResult' }]);
+        }, 3000);
+        const guessTimer = setTimeout(() => {
+            setMessages((prevMessages) => [...prevMessages, { id: prevMessages.length, content: `我猜你是${guessedName}`, sticker: null, sender: 'other' }]);
+        }, 4000);
+        return () => {
+            clearTimeout(gameResultTimer);
+            clearTimeout(guessTimer);
+        };
     }, []);
+
+
+
 
     return (
         <>
@@ -89,9 +147,10 @@ const FinishScreen: React.FC<FinishScreenProps> = ({ navigation }) => {
 
                 <FlatList
                     data={messages}
+                    ref={flatListRef}
                     renderItem={({ item, index }) => (
                         <View>
-                            {item.sender === "other" && (index === 0 || messages[index - 1].sender === "self") && (
+                            {item.sender !== "self" && (index === 0 || messages[index - 1].sender === "self") && (
                                 <View style={styles.otherInfo}>
                                     <Image
                                         source={require("../../assets/little-ming.png")}
@@ -103,15 +162,58 @@ const FinishScreen: React.FC<FinishScreenProps> = ({ navigation }) => {
                             <View
                                 style={[
                                     styles.messageContainer,
-                                    item.sender === "self" ? styles.selfMessage : styles.otherMessage,
+                                    item.sender === "self" ? styles.selfMessage : item.sender === "other" ? styles.otherMessage : styles.gameResultMessage,
                                 ]}
                             >
-                                {item.content && <Text style={styles.message}>{item.content}</Text>}
                                 {item.sticker !== null && (
                                     <Image
-                                        source={stickerImages[item.sticker]}
+                                        source={stickerImages[item.sticker as number]}
                                         style={{ width: 120, height: 120, resizeMode: "contain" }}
                                     />
+                                )}
+                                {
+                                    item.content &&
+                                    (
+                                        (item.sender === "self" && item.content === '點擊察看結果！') ?
+                                            <Button onPress={() => {
+                                                setShowMingChatRoom(true);
+                                                navigation.push('ChatRoomScreen');
+                                            }}>
+                                                {item.content}
+                                            </Button>
+                                            :
+                                            (item.sender === "gameResult") ?
+                                                item.content.split('\n').map((text, i) => {
+                                                    if (text.startsWith('*') && text.endsWith('*')) {
+                                                        return (
+                                                            <Text key={i} style={[styles.message, styles.boldYellow]}>
+                                                                {text.slice(1, -1)}
+                                                            </Text>
+                                                        );
+                                                    } else if (text === "帽踢、不要吃的") {
+                                                        return (
+                                                            <View key={i} style={[, styles.whiteBackground]} >
+                                                                <Text style={[styles.message, { fontWeight: 'bold' }]}>{text}</Text>
+                                                            </View>
+                                                        );
+                                                    } else {
+                                                        return (
+                                                            <Text key={i} style={[styles.message, { fontWeight: 'bold' }]}>
+                                                                {text}
+                                                            </Text>
+                                                        );
+                                                    }
+                                                })
+                                                :
+                                                <Text style={styles.message}>{item.content}</Text>
+                                    )
+                                }
+
+                                {item.content === `我猜你是${guessedName}` && (
+                                    <View style={styles.buttonContainer}>
+                                        <Button onPress={() => handleButtonClick('correct')} style={[styles.button, { backgroundColor: '#38B269', alignSelf: 'center' }]} > <Text style={{ color: '#FFFFFF' }}>正確</Text></Button>
+                                        <Button onPress={() => handleButtonClick('wrong')} style={[styles.button, { backgroundColor: '#C53939', alignSelf: 'center' }]} ><Text style={{ color: '#FFFFFF' }}>錯誤</Text></Button>
+                                    </View>
                                 )}
                             </View>
                         </View>
@@ -129,7 +231,7 @@ const FinishScreen: React.FC<FinishScreenProps> = ({ navigation }) => {
                         <Text style={{ color: '#000000' }}>Send</Text>
                     </Button>
                 </View>
-            </View>
+            </View >
         </>
     );
 };

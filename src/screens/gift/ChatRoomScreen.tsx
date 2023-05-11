@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     View,
     Text,
@@ -20,10 +20,27 @@ interface FriendOption {
 }
 
 const ChatRoomScreen: React.FC<ChatRoomScreenProps> = ({ navigation }) => {
+    const { showMingChatRoom } = useAppContext();
     const [chatRooms, setChatRooms] = useState<FriendOption[]>([
-        // { label: "小明", value: "小明", image: require('../../assets/little-ming.png') },
-        { label: "中明", value: "中明", image: require('../../assets/medium-ming.png') },
-        { label: "大明", value: "大明", image: require('../../assets/big-ming.png') },
+        ...(showMingChatRoom
+            ? [
+                {
+                    label: "阿明",
+                    value: "阿明",
+                    image: require("../../assets/little-ming.png"),
+                },
+            ]
+            : []),
+        {
+            label: "中明",
+            value: "中明",
+            image: require("../../assets/medium-ming.png"),
+        },
+        {
+            label: "大明",
+            value: "大明",
+            image: require("../../assets/big-ming.png"),
+        },
     ]);
 
     const [searchText, setSearchText] = useState('');
@@ -70,23 +87,34 @@ const ChatRoomScreen: React.FC<ChatRoomScreenProps> = ({ navigation }) => {
                             display: 'flex',
                             flexDirection: 'row',
                         }}
-                    // onPress={() => navigation.navigate('GameScreen')}
+                        onPress={() => {
+                            if (item.label === '阿明') {
+                                navigation.navigate('FinishScreen', {
+                                    chatRoom: item.value,
+                                });
+                            }
+                            //     } else {
+                            //         navigation.navigate('GameScreen');
+                            //     }
+                            // }}
+                        }}
                     >
                         <Image source={item.image} style={[styles.friendImage]} />
                         <Text style={[styles.friendName]}>{item.label}</Text>
                         <Text style={[styles.dateText]}>03 FEB</Text>
                     </TouchableOpacity>
-                )}
+                )
+                }
             // keyExtractor={(item) => item}
             />
-            <Button
+            < Button
                 mode="contained"
                 onPress={handleAddChatRoom}
                 style={{ backgroundColor: '#FFFFFF', alignSelf: 'center' }}
             >
                 <Image source={require('../../assets/addButton.png')} style={{ width: 42, height: 42, resizeMode: 'contain' }} />
-            </Button>
-        </View>
+            </Button >
+        </View >
     );
 };
 

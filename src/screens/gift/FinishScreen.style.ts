@@ -37,6 +37,7 @@ export const styles = StyleSheet.create({
         backgroundColor: '#ddd',
         padding: 10,
         borderRadius: 17,
+        maxWidth: '80%',
         marginTop: 10,
         marginHorizontal: 10,
         borderColor: '#ddd',
@@ -57,7 +58,7 @@ export const styles = StyleSheet.create({
 
     },
     otherMessage: {
-        backgroundColor: '#D9D9D9',
+        backgroundColor: '#FFFFFF',
         alignSelf: 'flex-start',
         marginLeft: 30,
     },
@@ -91,5 +92,33 @@ export const styles = StyleSheet.create({
     },
     friendNameSmall: {
         fontWeight: "bold",
+    },
+    gameResultMessage: {
+        backgroundColor: '#D9D9D9',
+        alignSelf: 'flex-start',
+        marginLeft: 30,
+    },
+    boldYellow: {
+        fontWeight: 'bold',
+        color: '#C8A336',
+    },
+    whiteBackground: {
+        backgroundColor: '#FFFFFF',
+        borderRadius: 50,
+        padding: 10,
+        marginVertical: 5,
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: 10,
+    },
+    button: {
+        width: 60,
+        height: 40,
+        margin: 5,
+        fontSize: 16,
+        alignContent: 'center',
+        justifyContent: 'center',
     },
 });

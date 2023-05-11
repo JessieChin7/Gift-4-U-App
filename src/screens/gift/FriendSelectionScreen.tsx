@@ -4,6 +4,7 @@ import {
     Text,
     Image,
     Animated,
+    Alert,
 } from "react-native";
 import { Button } from 'react-native-paper';
 import { StatusBar } from 'expo-status-bar';
@@ -11,7 +12,7 @@ import Checkbox from 'expo-checkbox';
 import ModalDropdown from 'react-native-modal-dropdown';
 import { useForm, Controller } from 'react-hook-form';
 import { styles } from './FriendSelectionScreen.style';
-
+import { useAppContext } from '../../context/AppContext';
 interface FriendSelectionScreenProps {
     navigation: any;
 }
@@ -34,6 +35,10 @@ const FriendSelectionScreen: React.FC<FriendSelectionScreenProps> = ({ navigatio
     const [isAnonymousSelected, setIsAnonymousSelected] = useState(false);
     const [isRealSelected, setIsRealSelected] = useState(false);
     const handleNextButton = () => {
+        if (selectedFriend === null) {
+            Alert.alert("請選擇要送禮的好友");
+            return;
+        }
         navigation.navigate('GameScreen');
     };
     const { handleSubmit, control } = useForm();
