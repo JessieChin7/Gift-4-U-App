@@ -57,7 +57,7 @@ const GameScreen: React.FC<GameScreenProps> = ({ navigation }) => {
     const detailReceiveItem: Item[] = [
         { id: 1, title: '我會親自拿給他' },
         { id: 2, title: '他需要來跟我拿' },
-        { id: 3, title: '會透過朋友轉交給它' },
+        { id: 3, title: '會透過朋友轉交給他' },
     ];
     const detailPackItem: Item[] = [
         { id: 1, title: '我會精緻包裝' },

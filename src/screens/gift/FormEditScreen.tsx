@@ -1,4 +1,4 @@
-import { View, Image, TouchableOpacity, TextInput } from 'react-native';
+import { View, Image, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import React, { useState } from 'react';
 import { Text } from "react-native-elements";
 import { Button } from 'react-native-paper';
@@ -75,7 +75,11 @@ const FormEdit: React.FC<FormEditScreenProps> = ({ navigation }) => {
 
     return (
         <>
-            <View style={styles.container}>
+            <KeyboardAvoidingView
+                style={styles.container}
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
+            >
                 <Text style={styles.title}>選擇送禮動物</Text>
                 <View style={{ display: 'flex', flexDirection: 'row', gap: 30, alignSelf: 'center', padding: 59 }}>
                     {animalImages.map((animalImage, index) => (
@@ -136,7 +140,7 @@ const FormEdit: React.FC<FormEditScreenProps> = ({ navigation }) => {
                         <Text style={{ color: '#000000' }}>下一步</Text>
                     </Button>
                 </View>
-            </View >
+            </KeyboardAvoidingView>
         </>
     );
 };

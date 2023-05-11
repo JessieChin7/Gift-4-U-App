@@ -56,22 +56,34 @@ const ChatRoomScreen: React.FC<ChatRoomScreenProps> = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            {/* <Text style={styles.title}>Chat Rooms</Text> */}
-            <TextInput
-                style={{
-                    height: 49,
-                    width: 339,
-                    borderColor: '#D9D9D9',
-                    borderWidth: 1,
-                    borderRadius: 14,
-                    paddingHorizontal: 10,
-                    marginTop: 25,
-                    alignSelf: 'center',
-                }}
-                onChangeText={(text) => setSearchText(text)}
-                value={searchText}
-                placeholder="Search conversation"
-            />
+            <View style={{
+                height: 49,
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'flex-start',
+                gap: 10,
+                width: 339,
+                borderColor: '#D9D9D9',
+                borderWidth: 1,
+                borderRadius: 14,
+                paddingHorizontal: 10,
+                marginTop: 25,
+                alignSelf: 'center',
+                alignContent: 'center',
+                alignItems: 'center',
+            }}>
+                <TouchableOpacity >
+                    <Image source={require('../../assets/search.png')} />
+                </TouchableOpacity>
+                <TextInput
+                    style={{
+                        alignSelf: 'center',
+                    }}
+                    onChangeText={(text) => setSearchText(text)}
+                    value={searchText}
+                    placeholder="Search conversation"
+                />
+            </View>
             <FlatList
                 data={filteredChatRooms}
                 style={{ alignSelf: 'center', margin: 0, padding: 0 }}

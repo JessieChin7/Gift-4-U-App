@@ -19,13 +19,18 @@ const SearchScreen: React.FC<ResultScreenProps> = () => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
-        <TextInput
-          value={searchTerm}
-          onChangeText={(text) => setSearchTerm(text)}
-          onSubmitEditing={handleSearch}
-          placeholder={'例：喜歡打籃球、backpink、大一男生'}
-          style={styles.input}
-        />
+        <View style={styles.inputcontainer}>
+          <TextInput
+            value={searchTerm}
+            onChangeText={(text) => setSearchTerm(text)}
+            onSubmitEditing={handleSearch}
+            placeholder={'例：喜歡打籃球、backpink、大一男生'}
+            style={styles.input}
+          />
+          <TouchableOpacity onPress={handleSearch}>
+            <Image source={require('../../assets/search.png')} />
+          </TouchableOpacity>
+        </View>
         <Text style={styles.text}>
           使用方式說明：{'\n'}
           試著輸入完整的句子{'\n'}

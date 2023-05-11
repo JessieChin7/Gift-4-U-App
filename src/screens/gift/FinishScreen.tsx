@@ -4,7 +4,9 @@ import {
     Text,
     TextInput,
     FlatList,
-    Image
+    Image,
+    KeyboardAvoidingView,
+    Platform
 } from 'react-native';
 import { Button } from 'react-native-paper';
 import { styles } from './FinishScreen.style';
@@ -41,11 +43,12 @@ const FinishScreen: React.FC<FinishScreenProps> = ({ navigation }) => {
     const flatListRef = useRef<FlatList>(null);
     // 每次 messages 更新後，自動捲動到最底部
     useEffect(() => {
-        if (flatListRef.current) {
-            flatListRef.current.scrollToEnd({ animated: false });
-        }
+        setTimeout(() => {
+            if (flatListRef.current) {
+                flatListRef.current.scrollToEnd({ animated: false });
+            }
+        }, 100);  // Delay of 100ms
     }, [messages]);
-
 
     const [guessedName, setGuessedName] = useState('小王');
     console.log('chekcedItems: ', checkedItems);
@@ -85,10 +88,16 @@ const FinishScreen: React.FC<FinishScreenProps> = ({ navigation }) => {
 
 
     useEffect(() => {
+
         const gameResultTimer = setTimeout(() => {
             const randomRItem = checkeRItems[Math.floor(Math.random() * checkeRItems.length)];
             const randomPItem = checkedPItems[Math.floor(Math.random() * checkedPItems.length)];
-            let content = `*遊戲結果*\n`;
+            let content = ``;
+            if (checkedItems.length === 1 && checkedItems[0].id === 4) {
+                setMessages((prevMessages) => [...prevMessages, { id: prevMessages.length, content: `\n*我想要*\n帽踢、不要吃的`, sticker: null, sender: "gameResult" }]);
+                return;
+            }
+            content += `*遊戲結果*\n`;
             for (const item of checkedItems) {
                 if (item.id === 1) {
                     content += `價格：\n100-300元\n`;
@@ -133,7 +142,11 @@ const FinishScreen: React.FC<FinishScreenProps> = ({ navigation }) => {
 
     return (
         <>
-            <View style={styles.container}>
+            <KeyboardAvoidingView
+                style={styles.container}
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
+            >
                 <View style={[styles.header, styles.separator]}>
                     <Button onPress={handleBackButton} style={styles.backButton}>
                         <Text style={{ color: '#000000', fontSize: 24 }}>{'<'}</Text>
@@ -174,38 +187,46 @@ const FinishScreen: React.FC<FinishScreenProps> = ({ navigation }) => {
                                 {
                                     item.content &&
                                     (
-                                        (item.sender === "self" && item.content === '點擊察看結果！') ?
+                                        (item.sender === "self" && item.content === '點擊此訊息查看') ?
                                             <Button onPress={() => {
-                                                setShowMingChatRoom(true);
-                                                navigation.push('ChatRoomScreen');
+                                                // setShowMingChatRoom(true);
+                                                // navigation.push('ChatRoomScreen');
                                             }}>
-                                                {item.content}
+                                                <Text style={[styles.message, { fontWeight: 'bold', fontSize: 16, color: '#000000', padding: 0, margin: 0 }]}> {item.content}</Text>
                                             </Button>
                                             :
-                                            (item.sender === "gameResult") ?
-                                                item.content.split('\n').map((text, i) => {
-                                                    if (text.startsWith('*') && text.endsWith('*')) {
-                                                        return (
-                                                            <Text key={i} style={[styles.message, styles.boldYellow]}>
-                                                                {text.slice(1, -1)}
-                                                            </Text>
-                                                        );
-                                                    } else if (text === "帽踢、不要吃的") {
-                                                        return (
-                                                            <View key={i} style={[, styles.whiteBackground]} >
-                                                                <Text style={[styles.message, { fontWeight: 'bold' }]}>{text}</Text>
-                                                            </View>
-                                                        );
-                                                    } else {
-                                                        return (
-                                                            <Text key={i} style={[styles.message, { fontWeight: 'bold' }]}>
-                                                                {text}
-                                                            </Text>
-                                                        );
-                                                    }
-                                                })
+                                            (item.sender === "self" && item.content === '點擊察看結果！') ?
+                                                <Button onPress={() => {
+                                                    setShowMingChatRoom(true);
+                                                    navigation.push('ChatRoomScreen');
+                                                }}>
+                                                    <Text style={[styles.message, { fontWeight: 'bold', fontSize: 16, color: '#000000', padding: 0, margin: 0 }]}> {item.content}</Text>
+                                                </Button>
                                                 :
-                                                <Text style={styles.message}>{item.content}</Text>
+                                                (item.sender === "gameResult") ?
+                                                    item.content.split('\n').map((text: string, i: number) => {
+                                                        if (text.startsWith('*') && text.endsWith('*')) {
+                                                            return (
+                                                                <Text key={i} style={[styles.message, styles.boldYellow]}>
+                                                                    {text.slice(1, -1)}
+                                                                </Text>
+                                                            );
+                                                        } else if (text === "帽踢、不要吃的") {
+                                                            return (
+                                                                <View key={i} style={[, styles.whiteBackground]} >
+                                                                    <Text style={[styles.message, { fontWeight: 'bold' }]}>{text}</Text>
+                                                                </View>
+                                                            );
+                                                        } else {
+                                                            return (
+                                                                <Text key={i} style={[styles.message, { fontWeight: 'bold' }]}>
+                                                                    {text}
+                                                                </Text>
+                                                            );
+                                                        }
+                                                    })
+                                                    :
+                                                    <Text style={styles.message}>{item.content}</Text>
                                     )
                                 }
 
@@ -231,7 +252,7 @@ const FinishScreen: React.FC<FinishScreenProps> = ({ navigation }) => {
                         <Text style={{ color: '#000000' }}>Send</Text>
                     </Button>
                 </View>
-            </View >
+            </KeyboardAvoidingView>
         </>
     );
 };
