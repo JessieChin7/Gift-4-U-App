@@ -3,17 +3,19 @@ import React, { useState } from 'react';
 import { Text } from "react-native-elements";
 import { Button } from 'react-native-paper';
 import { styles } from './StickerScreen.style';
+import { useAppContext } from '../../context/AppContext';
 interface StickerScreenProps {
     navigation: any;
 }
 const StickerScreen: React.FC<StickerScreenProps> = ({ navigation }) => {
-    const [selectedSticker, setSelectedSticker] = useState<number | null>(null);
+    // const [selectedSticker, setSelectedSticker] = useState<number | null>(null);
+    const { selectedSticker, setSelectedSticker } = useAppContext();
 
     const handleNextButton = () => {
         navigation.navigate('FinishScreen');
     };
     const handleBackButton = () => {
-        navigation.navigate('FormPreviewScreen');
+        navigation.navigate('FormEditScreen');
     };
 
     const handleStickerSelection = (index: number) => {
