@@ -23,8 +23,8 @@ const LoginScreen: React.FC<LoginScreenProps> = () => {
       <Text style={styles.text}>歡迎登入Gift for u !</Text>
       <View style={styles.inputContainer}>
         <TextInputCustomed placeholder="Username" defaultValue={username} onChangeText={setUsername} isPassword={false}/>
-        <TextInputCustomed placeholder="Email" defaultValue={email} onChangeText={setEmail} isPassword={false}/>
-        <TextInputCustomed placeholder="Password" defaultValue={password} onChangeText={setPassword} isPassword={true}/>
+        {/* <TextInputCustomed placeholder="Email" defaultValue={email} onChangeText={setEmail} isPassword={false}/>
+        <TextInputCustomed placeholder="Password" defaultValue={password} onChangeText={setPassword} isPassword={true}/> */}
       </View>
 
       <Button label="確認並登入" onPress={() => {navigation.navigate('Tab_Navigator')}} />

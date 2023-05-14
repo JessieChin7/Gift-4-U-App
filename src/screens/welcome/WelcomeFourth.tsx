@@ -22,7 +22,7 @@ const WelcomeFourth: React.FC<WelcomeFourthProps> = () => {
         <Text style={styles.textHeader}>開啟你的禮物旅程吧!</Text>
       </View>
 
-      <Button label="立即登入/註冊" onPress={() => {navigation.navigate('Register')}}/>
+      <Button label="立即登入/註冊" onPress={() => {navigation.navigate('Login')}}/>
 
       <View style={styles.dotsContainer}>
         <View style={styles.dotGray}/>

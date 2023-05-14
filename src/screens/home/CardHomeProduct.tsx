@@ -19,7 +19,7 @@ const CardHomeProduct: React.FC<CardHomeProductProps> = ({}) => {
           <Text style={styles.textProductName}> Lorem ipsum dolor </Text>
           <Text style={styles.textProductPrice}> $15.18 </Text>
         </View>
-        <Image source={require('../../assets/icon-fav.png')} style={styles.icon}/>
+        {/* <Image source={require('../../assets/icon-fav.png')} style={styles.icon}/> */}
       </View>
     </RNBounceable>
   );

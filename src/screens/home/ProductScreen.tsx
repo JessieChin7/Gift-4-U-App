@@ -5,14 +5,15 @@ import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { NavigatorParamList } from "../../navigation/common";
 
 import { styles } from "./ProductScreen.style";
+import LabelItem from "./LabelItem";
 
 interface ProductScreenProps {}
 
 const ProductScreen: React.FC<ProductScreenProps> = () => {
     const navigation = useNavigation<NavigationProp<NavigatorParamList>>();
 
-  return (
-      <View style={styles.container}>
+    return (
+        <View style={styles.container}>
             <Image source={require('../../assets/product-brush.png')}  style={styles.image} />
 
             <View style={styles.productInfoContainer}>
@@ -24,31 +25,30 @@ const ProductScreen: React.FC<ProductScreenProps> = () => {
                 <View style={styles.divider}/>
                 <Text style={styles.textProductOptions}>選擇 size</Text>
                 <View style={styles.labelsContainer}>
-                    <TouchableOpacity onPress={() => {}} style={styles.labelButton}>
-                        <Text style={styles.textLabelButton}>Extra Soft</Text>
+                    <LabelItem text="Extreme Soft" />
+                    <LabelItem text="soft" />
+                    <LabelItem text="Medium" />
+                    <LabelItem text="Hard" />
+                </View>
+
+                <View style={styles.btnsContainer}>
+                    <TouchableOpacity onPress={() => {}} style={styles.button} activeOpacity={0.6}>
+                        <Text style={styles.textButton}>加入願望清單</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => {}} style={styles.labelButton}>
-                        <Text style={styles.textLabelButton}>Soft</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity onPress={() => {}} style={styles.labelButton}>
-                        <Text style={styles.textLabelButton}>Medium</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity onPress={() => {}} style={styles.labelButton}>
-                        <Text style={styles.textLabelButton}>Hard</Text>
+                    <TouchableOpacity onPress={() => {}} style={styles.button} activeOpacity={0.6}>
+                        <Text style={styles.textButton}>加入購物車</Text>
                     </TouchableOpacity>
                 </View>
 
-                <TouchableOpacity onPress={() => {}} style={styles.button} activeOpacity={0.6}>
-                    <Text style={styles.textButton}>加到購物車</Text>
+                <TouchableOpacity onPress={() => {}} style={{ ...styles.button, backgroundColor: '#8391a1', width: '88%' }} activeOpacity={0.6}>
+                    <Text style={styles.textButton}>直接購買</Text>
                 </TouchableOpacity>
 
             </View>
-      </View>
+        </View>
 
-  );
+    );
 };
 
 export default ProductScreen;

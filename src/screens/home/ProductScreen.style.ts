@@ -53,7 +53,8 @@ export const styles = StyleSheet.create({
     labelsContainer: {
         flexDirection: 'row',
         marginVertical: 15,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        marginBottom: 30,
     },
     labelButton: {
         backgroundColor: '#eeeeee',
@@ -68,15 +69,23 @@ export const styles = StyleSheet.create({
         fontSize: 14,
         alignSelf: 'center'
     },
+    btnsContainer: {
+        // flex: 1,
+        height: 50,
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginVertical: 10,
+    },
     button: {
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
-        width: 360, 
-        height: 45,
-        backgroundColor: '#ffbd33',
-        borderRadius: 6,
-        marginTop: 50,
+        width: 158, 
+        height: 55,
+        backgroundColor: '#898989',
+        borderRadius: 10,
+        margin: 5,
         shadowColor: 'grey',
         shadowOffset: {
             width: 0,
@@ -87,6 +96,6 @@ export const styles = StyleSheet.create({
     },
     textButton: {
         color: 'white',
-        fontWeight: 'bold'
+        // fontWeight: 'bold'
     },
 });

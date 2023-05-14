@@ -11,8 +11,7 @@ const Stack = createNativeStackNavigator();
 
 
 const Navigation = () => {
-  // TODO: localstorage for first time tutorial
-  const [userToken, setUserToken] = useState('123')
+  const [userToken, setUserToken] = useState('')
 
   return (
     <NavigationContainer>
