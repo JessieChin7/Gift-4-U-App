@@ -9,11 +9,11 @@ const FriendDetailScreen: React.FC<FriendDetailScreenProps> = () => {
   
   return (
     <View style={styles.container}>
-      <Image source={require('../../assets/avatar-anna.png')}  style={styles.avatar} />
-      <Text style={styles.textName}>Anna</Text>
+      <Image source={require('../../assets/medium-ming.png')}  style={styles.avatar} />
+      <Text style={styles.textName}>中明</Text>
 
       <View style={styles.textContainer}>
-        <Text style={styles.textTitle}>關於我：</Text>
+        <Text style={styles.textTitle}>關於他：</Text>
         <Text style={styles.textContent}>興趣：</Text>
         <Text style={styles.textContent}>留言：我超愛泰迪熊的，送我泰迪熊</Text>
       </View>

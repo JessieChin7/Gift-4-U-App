@@ -1,27 +1,42 @@
-import React from "react";
-import { View, TouchableOpacity, StatusBar } from 'react-native';
+import React, { useState } from "react";
+import { View, TouchableOpacity } from 'react-native';
 import { Image, Text } from "react-native-elements";
-import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { NavigatorParamList } from "../../navigation/common";
+
+import { useAppContext } from "../../context/AppContext";
 
 import { styles } from "./ProductScreen.style";
 import LabelItem from "./LabelItem";
+import { allProducts, Product } from "../../shared/data/fakeData";
 
-interface ProductScreenProps {}
+interface ProductScreenProps {
+    route: any;
+    navigation: any;
+}
 
-const ProductScreen: React.FC<ProductScreenProps> = () => {
-    const navigation = useNavigation<NavigationProp<NavigatorParamList>>();
+const ProductScreen: React.FC<ProductScreenProps> = ({ route, navigation }) => {
+    const { productId } = route.params;
+    const { 
+        wishListProducts,
+        setWishListProducts, 
+        cartProducts,
+        setCartProducts 
+    } = useAppContext()
+
+    const [addedToList, setAddedToList] = useState(false)
+    const [addedToCart, setAddedToCart] = useState(false)
+
+    const chosenProduct = allProducts.find((product) => product.id == productId)
 
     return (
         <View style={styles.container}>
-            <Image source={require('../../assets/product-brush.png')}  style={styles.image} />
+            <Image source={chosenProduct?.src}  style={styles.image} />
 
             <View style={styles.productInfoContainer}>
                 <View style={styles.headingContainer}>
-                    <Text style={styles.textProductName}>木質牙刷</Text>
-                    <Text style={styles.textProductPrice}>$4.50</Text>
+                    <Text style={styles.textProductName}>{chosenProduct?.name}</Text>
+                    <Text style={styles.textProductPrice}>${chosenProduct?.price}</Text>
                 </View>
-                <Text style={styles.textProductDescription}>Put your item description here. This toothbrush is made of bamboo and charcoal</Text>
+                <Text style={styles.textProductDescription}>{chosenProduct?.description}</Text>
                 <View style={styles.divider}/>
                 <Text style={styles.textProductOptions}>選擇 size</Text>
                 <View style={styles.labelsContainer}>
@@ -32,16 +47,40 @@ const ProductScreen: React.FC<ProductScreenProps> = () => {
                 </View>
 
                 <View style={styles.btnsContainer}>
-                    <TouchableOpacity onPress={() => {}} style={styles.button} activeOpacity={0.6}>
+                    {!addedToList ? 
+                    <TouchableOpacity onPress={() => {
+                        setAddedToList(true)
+                        setWishListProducts([...wishListProducts, ...allProducts.filter((product: Product) => product.id === chosenProduct?.id)])
+                    }} style={styles.button} activeOpacity={0.6}>
                         <Text style={styles.textButton}>加入願望清單</Text>
                     </TouchableOpacity>
+                    : 
+                    <TouchableOpacity onPress={() => {
+                        setAddedToList(false)
+                        setWishListProducts(wishListProducts.filter((product) => product.id !== chosenProduct?.id))
+                    }} style={{ ...styles.button, backgroundColor: "#c5c8cb" }} activeOpacity={0.6}>
+                        <Text style={styles.textButton}>已加入願望清單</Text>
+                    </TouchableOpacity>
+                    }
 
-                    <TouchableOpacity onPress={() => {}} style={styles.button} activeOpacity={0.6}>
+                    {!addedToCart ? 
+                    <TouchableOpacity onPress={() => {
+                        setAddedToCart(true)
+                        setCartProducts([...cartProducts, ...allProducts.filter((product: Product) => product.id === chosenProduct?.id)])
+                    }} style={styles.button} activeOpacity={0.6}>
                         <Text style={styles.textButton}>加入購物車</Text>
                     </TouchableOpacity>
+                    : 
+                    <TouchableOpacity onPress={() => {
+                        setAddedToCart(false)
+                        setCartProducts(cartProducts.filter((product) => product.id !== chosenProduct?.id))
+                    }} style={{ ...styles.button, backgroundColor: "#c5c8cb" }} activeOpacity={0.6}>
+                        <Text style={styles.textButton}>已加入購物車</Text>
+                    </TouchableOpacity>
+                    }
                 </View>
 
-                <TouchableOpacity onPress={() => {}} style={{ ...styles.button, backgroundColor: '#8391a1', width: '88%' }} activeOpacity={0.6}>
+                <TouchableOpacity onPress={() => {}} style={{ ...styles.button, backgroundColor: '#8391a1', width: '60%' }} activeOpacity={0.6}>
                     <Text style={styles.textButton}>直接購買</Text>
                 </TouchableOpacity>
 

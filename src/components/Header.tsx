@@ -12,7 +12,9 @@ export const HeaderTitle = (props: any) => {
     );
 }
 
-interface AvatarButtonProps {}
+interface AvatarButtonProps {
+    navigation: any;
+}
 
 export const AvatarButton: React.FC<AvatarButtonProps> = () => {
     const navigation = useNavigation<NavigationProp<NavigatorParamList>>();

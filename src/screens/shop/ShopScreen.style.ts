@@ -9,12 +9,12 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 10,
     },
     headerContainer: {
-        flex: 1,
+        // flex: 2,
         flexDirection: 'row',
         width: '100%',
+        height: 30,
         marginTop: 20,
         paddingHorizontal: 20,
-        alignItems: 'center',
     },
     btn: {
         width: '50%',
@@ -46,7 +46,8 @@ export const styles = StyleSheet.create({
         marginVertical: 7
     },
     scrollViewContainer: {
-        marginVertical: 32,
+        marginTop: 32,
         paddingHorizontal: 20,
+
     }
 });

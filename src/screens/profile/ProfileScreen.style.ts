@@ -9,9 +9,8 @@ export const styles = StyleSheet.create({
         paddingTop: 10,
     },
     avatar: {
-        width: 190,
-        height: 190,
-        objectFit: 'fill'
+        width: 191,
+        height: 181,
     },
     textName: {
         fontSize: 20,

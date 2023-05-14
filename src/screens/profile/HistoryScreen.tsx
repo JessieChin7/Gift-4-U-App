@@ -14,7 +14,7 @@ const HistoryScreen: React.FC<HistoryScreenProps> = () => {
         <View style={styles.line}/>
         <View style={styles.mainContainer}>
           <View style={styles.headerContainer}>
-            <Image source={require('../../assets/avatar-anna.png')} style={styles.image}/>
+            <Image source={require('../../assets/medium-ming.png')} style={styles.image}/>
             <Icon
               name={'arrow-forward'}
               type={IconType.MaterialIcons}
@@ -31,8 +31,8 @@ const HistoryScreen: React.FC<HistoryScreenProps> = () => {
             <Text style={styles.text}>2020.09.04</Text>
           </View>
 
-          <Image source={require('../../assets/product-hanger.png')} style={styles.productImg}/>
-          <Text style={styles.productText}>ANNA 送你一個 木頭娃娃掛架</Text>
+          <Image source={require('../../assets/products/hanger.png')} style={styles.productImg}/>
+          <Text style={styles.productText}>中明 送你一個 木頭娃娃掛架</Text>
         </View>
       </View>
     </View>

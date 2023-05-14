@@ -1,5 +1,6 @@
 // src/context/AppContext.tsx
 import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { Product } from '../shared/data/fakeData';
 
 interface AppState {
     selectedSticker: number | null;
@@ -14,6 +15,12 @@ interface AppState {
     setCheckedPItems: (items: { id: number, title: string }[]) => void;
     showMingChatRoom: boolean;
     setShowMingChatRoom: (show: boolean) => void;
+    username: string;
+    setUsername: (username: string) => void;
+    wishListProducts: Product[];
+    setWishListProducts: (products: Product[]) => void;
+    cartProducts: Product[];
+    setCartProducts: (products: Product[]) => void;
 }
 
 const AppContext = createContext<AppState>({
@@ -29,6 +36,12 @@ const AppContext = createContext<AppState>({
     setCheckedPItems: () => { },
     showMingChatRoom: false,
     setShowMingChatRoom: () => { },
+    username: "",
+    setUsername: () => {},
+    wishListProducts: [],
+    setWishListProducts: () => {},
+    cartProducts: [],
+    setCartProducts: () => {},
 });
 
 interface AppProviderProps {
@@ -42,6 +55,9 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     const [checkeRItems, setCheckedRItems] = useState<{ id: number, title: string }[]>([]);
     const [checkedPItems, setCheckedPItems] = useState<{ id: number, title: string }[]>([]);
     const [showMingChatRoom, setShowMingChatRoom] = useState(false);
+    const [username, setUsername] = useState<string>("")
+    const [wishListProducts, setWishListProducts] = useState<Product[]>([])
+    const [cartProducts, setCartProducts] = useState<Product[]>([])
     return (
         <AppContext.Provider value={{
             selectedSticker,
@@ -56,6 +72,12 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
             setCheckedPItems,
             showMingChatRoom,
             setShowMingChatRoom,
+            username,
+            setUsername,
+            wishListProducts,
+            setWishListProducts,
+            cartProducts,
+            setCartProducts,
         }}>
             {children}
         </AppContext.Provider>

@@ -4,6 +4,8 @@ import { Text } from "react-native-elements";
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { NavigatorParamList } from "../../navigation/common";
 
+import { useAppContext } from "../../context/AppContext";
+
 import Button from "../../components/Button";
 import { styles } from "./LoginScreen.style";
 import TextInputCustomed from "../../components/TextInputCustomed";
@@ -11,10 +13,11 @@ import TextInputCustomed from "../../components/TextInputCustomed";
 interface LoginScreenProps {}
 
 const LoginScreen: React.FC<LoginScreenProps> = () => {
+
     const navigation = useNavigation<NavigationProp<NavigatorParamList>>();
     const textInputRef = useRef(null);
 
-    const [username, setUsername] = useState('');
+    const { username, setUsername } = useAppContext();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 

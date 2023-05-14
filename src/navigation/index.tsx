@@ -11,7 +11,7 @@ const Stack = createNativeStackNavigator();
 
 
 const Navigation = () => {
-  const [userToken, setUserToken] = useState('')
+  const [userToken, setUserToken] = useState('123')
 
   return (
     <NavigationContainer>

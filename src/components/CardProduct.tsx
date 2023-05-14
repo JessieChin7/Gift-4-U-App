@@ -3,9 +3,9 @@ import { View } from 'react-native';
 import { Image, Text } from "react-native-elements";
 import RNBounceable from "@freakycoder/react-native-bounceable";
 
-import { styles } from "./CardHomeProduct.style";
+import { styles } from "./CardProduct.style";
 
-interface CardHomeProductProps {
+interface CardProductProps {
   navigation: any;
   src: any;
   productName: string;
@@ -13,7 +13,7 @@ interface CardHomeProductProps {
   onPress: () => {};
 }
 
-const CardHomeProduct: React.FC<CardHomeProductProps> = ({navigation, src, productName, productPrice, onPress }) => {
+const CardProduct: React.FC<CardProductProps> = ({navigation, src, productName, productPrice, onPress }) => {
   return (
     <RNBounceable style={styles.container} onPress={onPress}>
       <Image style={styles.image} source={src}/>
@@ -28,4 +28,4 @@ const CardHomeProduct: React.FC<CardHomeProductProps> = ({navigation, src, produ
   );
 };
 
-export default CardHomeProduct;
+export default CardProduct;

@@ -23,7 +23,7 @@ interface Message {
 }
 
 const FinishScreen: React.FC<FinishScreenProps> = ({ navigation }) => {
-    const { selectedSticker, selectedAnimal, checkedItems, checkeRItems, checkedPItems, showMingChatRoom, setShowMingChatRoom } = useAppContext();
+    const { selectedSticker, selectedAnimal, checkedItems, checkeRItems, checkedPItems, showMingChatRoom, setShowMingChatRoom, username } = useAppContext();
     const animalNames = [
         "海獺",
         "河馬",
@@ -50,7 +50,7 @@ const FinishScreen: React.FC<FinishScreenProps> = ({ navigation }) => {
         }, 100);  // Delay of 100ms
     }, [messages]);
 
-    const [guessedName, setGuessedName] = useState('小王');
+    // const [guessedName, setGuessedName] = useState('小王');
     console.log('chekcedItems: ', checkedItems);
     console.log('chekcedRItems: ', checkeRItems);
     console.log('chekcedPItems: ', checkedPItems);
@@ -129,7 +129,7 @@ const FinishScreen: React.FC<FinishScreenProps> = ({ navigation }) => {
             setMessages((prevMessages) => [...prevMessages, { id: prevMessages.length, content: content, sticker: null, sender: 'gameResult' }]);
         }, 3000);
         const guessTimer = setTimeout(() => {
-            setMessages((prevMessages) => [...prevMessages, { id: prevMessages.length, content: `我猜你是${guessedName}`, sticker: null, sender: 'other' }]);
+            setMessages((prevMessages) => [...prevMessages, { id: prevMessages.length, content: `我猜你是${username}`, sticker: null, sender: 'other' }]);
         }, 4000);
         return () => {
             clearTimeout(gameResultTimer);
@@ -230,7 +230,7 @@ const FinishScreen: React.FC<FinishScreenProps> = ({ navigation }) => {
                                     )
                                 }
 
-                                {item.content === `我猜你是${guessedName}` && (
+                                {item.content === `我猜你是${username}` && (
                                     <View style={styles.buttonContainer}>
                                         <Button onPress={() => handleButtonClick('correct')} style={[styles.button, { backgroundColor: '#38B269', alignSelf: 'center' }]} > <Text style={{ color: '#FFFFFF' }}>正確</Text></Button>
                                         <Button onPress={() => handleButtonClick('wrong')} style={[styles.button, { backgroundColor: '#C53939', alignSelf: 'center' }]} ><Text style={{ color: '#FFFFFF' }}>錯誤</Text></Button>

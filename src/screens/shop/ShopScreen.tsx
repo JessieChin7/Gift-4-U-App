@@ -1,15 +1,17 @@
 import React, { useState } from "react";
-import { ScrollView, Touchable, TouchableOpacity, View } from 'react-native';
+import { ScrollView, TouchableOpacity, View } from 'react-native';
 import { Text } from "react-native-elements";
+
+import { useAppContext } from "../../context/AppContext";
+
 import CardCartProduct from "./CardCartProduct";
-
-
 import { styles } from "./ShopScreen.style";
 
 interface ShopScreenProps {}
 
 const ShopScreen: React.FC<ShopScreenProps> = () => {
   const [isWishList, setIsWishList] = useState(true)
+  const {wishListProducts, cartProducts} = useAppContext()
 
   return (
     <View style={styles.container}>
@@ -37,14 +39,13 @@ const ShopScreen: React.FC<ShopScreenProps> = () => {
 
         {/* <View style={styles.divider}/> */}
       <ScrollView style={styles.scrollViewContainer} showsVerticalScrollIndicator={false}>
+        {isWishList 
+        ? wishListProducts.map((product) => 
+          <CardCartProduct src={product.src} productName={product.name} productPrice={product.price} key={product.name} />)
+        : cartProducts.map((product) => 
+          <CardCartProduct src={product.src} productName={product.name} productPrice={product.price} key={product.name} />)
+        }
 
-        <CardCartProduct />
-        <CardCartProduct />
-        <CardCartProduct />
-        <CardCartProduct />
-        <CardCartProduct />
-        <CardCartProduct />
-        <CardCartProduct />
       </ScrollView>
     </View>
   );

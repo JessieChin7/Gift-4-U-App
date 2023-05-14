@@ -10,15 +10,15 @@ interface FriendListScreenProps {}
 const FriendListScreen: React.FC<FriendListScreenProps> = () => {  
   const friendsData = [
     {
-      avatar: require('../../assets/ming.png'),
+      avatar: require('../../assets/little-ming.png'),
       username: "小明"
     },
     {
-      avatar: require('../../assets/ming.png'),
+      avatar: require('../../assets/medium-ming.png'),
       username: "中明"
     },
     {
-      avatar: require('../../assets/ming.png'),
+      avatar: require('../../assets/big-ming.png'),
       username: "大明"
     }
   ]

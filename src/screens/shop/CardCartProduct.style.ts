@@ -33,16 +33,19 @@ export const styles = StyleSheet.create({
     textContainer: {
         flex: 1,
         flexDirection: 'column',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-start',
     },
     textName: {
         fontWeight: 'bold',
         fontSize: 16,
+        marginBottom: 10,
     },
     textPrice: {
         color: '#c5c8cb',
         fontWeight: 'normal',
         fontSize: 12,
+        marginBottom: 10,
+
     },
     
 
@@ -54,7 +57,7 @@ export const styles = StyleSheet.create({
     },
 
     button: {
-        width: 79,
+        width: 70,
         height: 27,
         backgroundColor: '#d9d9d9',
         borderRadius: 20,

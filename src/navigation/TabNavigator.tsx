@@ -2,7 +2,7 @@ import React from 'react';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon, { IconType } from "react-native-dynamic-vector-icons";
 
-import { TABS } from "../types";
+import { TABS } from "../shared/types";
 import HomeStackNavigator from './HomeStackNavigator';
 import GiftStackNavigator from './GiftStackNavigator';
 import SearchStackNavigator from './SearchStackNavigator';

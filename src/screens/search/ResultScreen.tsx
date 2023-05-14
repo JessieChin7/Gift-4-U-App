@@ -1,36 +1,72 @@
 import React from "react";
 import { View, ScrollView } from 'react-native';
 import { Text } from "react-native-elements";
-import CardSearchProduct from "./CardSearchProduct";
-import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { NavigatorParamList } from "../../navigation/common";
+import CardProduct from "../../components/CardProduct";
 import { styles } from "./ResultScreen.style";
 
-interface ResultScreenProps { }
+import { allProducts } from "../../shared/data/fakeData";
 
-const ResultScreen: React.FC<ResultScreenProps> = () => {
-    const navigation = useNavigation<NavigationProp<NavigatorParamList>>();
+interface ResultScreenProps { 
+    navigation: any;
+}
+
+const ResultScreen: React.FC<ResultScreenProps> = ({ navigation }) => {
+    const categoryBPIds = [1, 2, 3]
+    const categoryChocolateIds = [4, 5, 6]
+    const categoryThingIds = [7, 8, 9]
+
+    const categoryBP = allProducts.filter(product => categoryBPIds.includes(product.id))
+    const categoryChocolate = allProducts.filter(product => categoryChocolateIds.includes(product.id))
+    const categoryThings = allProducts.filter(product => categoryThingIds.includes(product.id))
+
     return (
         <ScrollView style={styles.container}>
             <View style={styles.productListContainer}>
                 <Text style={styles.textHeading}>BlackPink</Text>
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollContainer}>
-                    <CardSearchProduct />
-                    <CardSearchProduct />
+                {categoryBP.map(
+                    (product: any) => 
+                    <CardProduct 
+                    key={product.id}
+                    navigation={navigation} 
+                    src={product.src} 
+                    productName={product.name} 
+                    productPrice={product.price} 
+                    onPress={() => navigation.navigate('Product', { productId: product.id })}
+                    />
+                )}
                 </ScrollView>
             </View>
             <View style={styles.productListContainer}>
                 <Text style={styles.textHeading}>巧克力</Text>
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollContainer}>
-                    <CardSearchProduct />
-                    <CardSearchProduct />
+                    {categoryChocolate.map(
+                        (product: any) => 
+                        <CardProduct 
+                        key={product.id}
+                        navigation={navigation} 
+                        src={product.src} 
+                        productName={product.name} 
+                        productPrice={product.price} 
+                        onPress={() => navigation.navigate('Product', { productId: product.id })}
+                        />
+                    )}
                 </ScrollView>
             </View>
             <View style={styles.productListContainer}>
                 <Text style={styles.textHeading}>文創小物</Text>
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollContainer}>
-                    <CardSearchProduct />
-                    <CardSearchProduct />
+                    {categoryThings.map(
+                        (product: any) => 
+                        <CardProduct 
+                        key={product.id}
+                        navigation={navigation} 
+                        src={product.src} 
+                        productName={product.name} 
+                        productPrice={product.price} 
+                        onPress={() => navigation.navigate('Product', { productId: product.id })}
+                        />
+                    )}
                 </ScrollView>
             </View>
         </ScrollView>
