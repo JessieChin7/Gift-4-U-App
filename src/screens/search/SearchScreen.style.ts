@@ -23,9 +23,16 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     input: {
+        padding: 0,
+        backgroundColor: 'transparent',
+    },
+    inputcontainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
         width: 333,
         height: 110,
-        backgroundColor: 'transparent',
         borderWidth: 1,
         borderColor: '#D9D9D9',
         borderRadius: 30,

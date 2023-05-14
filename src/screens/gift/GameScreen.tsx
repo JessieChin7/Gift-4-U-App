@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { View, Image, TouchableOpacity, Modal, TextInput, ScrollView } from 'react-native';
+import { View, Image, TouchableOpacity, Modal, TextInput, ScrollView, Alert } from 'react-native';
 import { Text } from "react-native-elements";
 import Checkbox from 'expo-checkbox';
 import { Button } from 'react-native-paper';
 import { styles } from './GameScreen.style';
 import * as Haptics from 'expo-haptics';
-
+import { useAppContext } from '../../context/AppContext';
 interface Item {
     id: number;
     title: string;
@@ -16,13 +16,19 @@ interface GameScreenProps {
 
 
 const GameScreen: React.FC<GameScreenProps> = ({ navigation }) => {
-    const [checkedItems, setCheckedItems] = useState<number[]>([]);
-    const [checkeRItems, setCheckedRItems] = useState<number[]>([]);
-    const [checkedPItems, setCheckedPItems] = useState<number[]>([]);
+    const {
+        checkedItems,
+        setCheckedItems,
+        checkeRItems,
+        setCheckedRItems,
+        checkedPItems,
+        setCheckedPItems,
+    } = useAppContext();
     const [modalVisible, setModalVisible] = useState<boolean>(false);
     const [modalImage, setModalImage] = useState<any>(null);
     const [expandedItems, setExpandedItems] = useState<{ [key: number]: boolean }>({});
-
+    const [priceRangeStart, setPriceRangeStart] = useState<any>();
+    const [priceRangeEnd, setPriceRangeEnd] = useState<any>();
     const onPreviewButtonLongPress = (imageURL: string) => {
         // console.log('onPreviewButtonLongPress');
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
@@ -51,7 +57,7 @@ const GameScreen: React.FC<GameScreenProps> = ({ navigation }) => {
     const detailReceiveItem: Item[] = [
         { id: 1, title: '我會親自拿給他' },
         { id: 2, title: '他需要來跟我拿' },
-        { id: 3, title: '會透過朋友轉交給它' },
+        { id: 3, title: '會透過朋友轉交給他' },
     ];
     const detailPackItem: Item[] = [
         { id: 1, title: '我會精緻包裝' },
@@ -60,32 +66,52 @@ const GameScreen: React.FC<GameScreenProps> = ({ navigation }) => {
     ];
 
     // update state in toggleChecked function
-    const toggleChecked = (id: number) => {
-        if (checkedItems.includes(id)) {
-            setCheckedItems(checkedItems.filter((item) => item !== id));
+    const toggleChecked = (item: { id: number, title: string }) => {
+        const id = item.id;
+        if (checkedItems.some(checkedItem => checkedItem.id === id)) {
+            setCheckedItems(checkedItems.filter((checkedItem) => checkedItem.id !== id));
             setExpandedItems({ ...expandedItems, [id]: false });
         } else {
-            setCheckedItems([...checkedItems, id]);
+            setCheckedItems([...checkedItems, item]);
             setExpandedItems({ ...expandedItems, [id]: true });
         }
     };
 
-    const toggleRChecked = (id: number) => {
-        if (checkeRItems.includes(id)) {
-            setCheckedRItems(checkeRItems.filter((item) => item !== id));
+    const toggleRChecked = (item: { id: number, title: string }) => {
+        const id = item.id;
+        if (checkeRItems.some(checkeRItem => checkeRItem.id === id)) {
+            setCheckedRItems(checkeRItems.filter((checkeRItem) => checkeRItem.id !== id));
         } else {
-            setCheckedRItems([...checkeRItems, id]);
+            setCheckedRItems([...checkeRItems, item]);
         }
     };
 
-    const togglePChecked = (id: number) => {
-        if (checkedPItems.includes(id)) {
-            setCheckedPItems(checkedPItems.filter((item) => item !== id));
+    const togglePChecked = (item: { id: number, title: string }) => {
+        const id = item.id;
+        if (checkedPItems.some(checkedPItem => checkedPItem.id === id)) {
+            setCheckedPItems(checkedPItems.filter((checkedPItem) => checkedPItem.id !== id));
         } else {
-            setCheckedPItems([...checkedPItems, id]);
+            setCheckedPItems([...checkedPItems, item]);
         }
     };
+
     const handleNextButton = () => {
+        // 在checkitem（四種遊戲中）至少要選擇一種
+        if (checkedItems.length === 0) {
+            Alert.alert("請至少選擇一種遊戲");
+            return;
+        }
+        // 如果有選擇收禮方式或包裝方式，都至少要選擇一項 expand item
+        if ((checkedItems.some(item => item.id === 2) && checkeRItems.length === 0) ||
+            (checkedItems.some(item => item.id === 3) && checkedPItems.length === 0)) {
+            Alert.alert("如果選擇收禮方式抽抽抽或包裝方式抽抽抽，請至少選擇一種細節選項");
+            return;
+        }
+        // 如果有價格的抽抽抽遊戲，價格區間的兩個input一定要填東西
+        if (checkedItems.some(item => item.id === 1) && (!priceRangeStart || !priceRangeEnd)) {
+            Alert.alert("如果選擇價格命運抽抽抽遊戲，請輸入價格區間");
+            return;
+        }
         navigation.navigate('FormEditScreen');
     };
     const handleBackButton = () => {
@@ -100,21 +126,21 @@ const GameScreen: React.FC<GameScreenProps> = ({ navigation }) => {
                 </View>
                 <View style={styles.scrollViewContainer}>
                     <ScrollView style={styles.scrollView} contentContainerStyle={{ flexGrow: 1 }}>
-                        {items.map((item) => (
-                            <React.Fragment key={item.id}>
-                                <View key={item.id} style={styles.checkBoxContainer}>
+                        {items.map((gameItem) => (
+                            <React.Fragment key={gameItem.id}>
+                                <View key={gameItem.id} style={styles.checkBoxContainer}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 32 }}>
                                         <Checkbox
                                             style={styles.radioButton}
-                                            value={checkedItems.includes(item.id)}
-                                            onValueChange={() => toggleChecked(item.id)}
-                                            color={checkedItems.includes(item.id) ? '#667080' : '#667080'}
+                                            value={checkedItems.some(item => item.id === gameItem.id)}
+                                            onValueChange={() => toggleChecked(gameItem)}
+                                            color={checkedItems.some(item => item.id === gameItem.id) ? '#667080' : '#667080'}
                                         />
-                                        <Text style={styles.checkBoxTitle}>{item.title}</Text>
+                                        <Text style={styles.checkBoxTitle}>{gameItem.title}</Text>
                                         <TouchableOpacity
                                             style={styles.previewButton}
                                             activeOpacity={1}
-                                            onLongPress={() => onPreviewButtonLongPress(itemImages[item.id])}
+                                            onLongPress={() => onPreviewButtonLongPress(itemImages[gameItem.id])}
                                             onPressOut={onPreviewButtonRelease}
                                         >
                                             <Text style={{ color: "#FFFFFF", fontSize: 12, fontWeight: "bold" }}>
@@ -125,27 +151,31 @@ const GameScreen: React.FC<GameScreenProps> = ({ navigation }) => {
 
                                 </View >
                                 {
-                                    item.id === 1 && expandedItems[item.id] && (
+                                    gameItem.id === 1 && expandedItems[gameItem.id] && (
                                         <View style={{ alignItems: 'center' }}>
                                             <Text style={{ color: "#000000", fontSize: 15, fontWeight: "bold", textAlign: "center", paddingBottom: 13 }}>
                                                 請輸入價格區間（NTD$）：
                                             </Text>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 32 }}>
-                                                <TextInput style={styles.input}>
-
-                                                </TextInput>
+                                                <TextInput
+                                                    style={styles.input}
+                                                    value={priceRangeStart}
+                                                    onChangeText={text => setPriceRangeStart(text)}
+                                                />
                                                 <Text style={{ color: "#000000", fontSize: 15, fontWeight: "bold", textAlign: "center", textAlignVertical: "center", paddingBottom: 13 }}>
                                                     ~
                                                 </Text>
-                                                <TextInput style={styles.input}>
-
-                                                </TextInput>
+                                                <TextInput
+                                                    style={styles.input}
+                                                    value={priceRangeEnd}
+                                                    onChangeText={text => setPriceRangeEnd(text)}
+                                                />
                                             </View>
                                         </View>
                                     )
                                 }
                                 {
-                                    item.id === 2 && expandedItems[item.id] && (
+                                    gameItem.id === 2 && expandedItems[gameItem.id] && (
 
                                         <View style={{ alignItems: 'center' }}>
                                             <Text style={{ color: "#000000", fontSize: 15, fontWeight: "bold", textAlign: "center", paddingBottom: 13 }}>
@@ -157,11 +187,11 @@ const GameScreen: React.FC<GameScreenProps> = ({ navigation }) => {
                                                     style={[
                                                         styles.detailBoxContainer,
                                                         {
-                                                            borderWidth: checkeRItems.includes(Ritem.id) ? 1 : 0,
-                                                            borderColor: checkeRItems.includes(Ritem.id) ? '#667080' : 'transparent',
+                                                            borderWidth: checkeRItems.some(item => item.id === Ritem.id) ? 1 : 0,
+                                                            borderColor: checkeRItems.some(item => item.id === Ritem.id) ? '#667080' : 'transparent',
                                                         },
                                                     ]}
-                                                    onPress={() => toggleRChecked(Ritem.id)}
+                                                    onPress={() => toggleRChecked(Ritem)}
                                                 >
                                                     <Text style={styles.detailBoxTitle}>{Ritem.title}</Text>
                                                 </TouchableOpacity>
@@ -170,7 +200,7 @@ const GameScreen: React.FC<GameScreenProps> = ({ navigation }) => {
                                     )
                                 }
                                 {
-                                    item.id === 3 && expandedItems[item.id] && (
+                                    gameItem.id === 3 && expandedItems[gameItem.id] && (
                                         <View style={{ alignItems: 'center' }}>
                                             <Text style={{ color: "#000000", fontSize: 15, fontWeight: "bold", textAlign: "center", paddingBottom: 13 }}>
                                                 請選擇最少一種包裝方式：
@@ -181,11 +211,11 @@ const GameScreen: React.FC<GameScreenProps> = ({ navigation }) => {
                                                     style={[
                                                         styles.detailBoxContainer,
                                                         {
-                                                            borderWidth: checkedPItems.includes(Pitem.id) ? 1 : 0,
-                                                            borderColor: checkedPItems.includes(Pitem.id) ? '#667080' : 'transparent',
+                                                            borderWidth: checkedPItems.some(item => item.id === Pitem.id) ? 1 : 0,
+                                                            borderColor: checkedPItems.some(item => item.id === Pitem.id) ? '#667080' : 'transparent',
                                                         },
                                                     ]}
-                                                    onPress={() => togglePChecked(Pitem.id)}
+                                                    onPress={() => togglePChecked(Pitem)}
                                                 >
                                                     <Text style={styles.detailBoxTitle}>{Pitem.title}</Text>
                                                 </TouchableOpacity>
@@ -206,7 +236,7 @@ const GameScreen: React.FC<GameScreenProps> = ({ navigation }) => {
                             </Button>
                         </View>
                     </ScrollView >
-                </View>
+                </View >
             </View >
 
             <Modal

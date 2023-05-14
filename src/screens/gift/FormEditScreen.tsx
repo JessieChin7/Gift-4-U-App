@@ -1,8 +1,9 @@
-import { View, Image, TouchableOpacity, TextInput } from 'react-native';
+import { View, Image, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import React, { useState } from 'react';
 import { Text } from "react-native-elements";
 import { Button } from 'react-native-paper';
 import { styles } from './FormEditScreen.style';
+import { useAppContext } from '../../context/AppContext';
 interface FormEditScreenProps {
     navigation: any;
 }
@@ -30,16 +31,15 @@ const FormEdit: React.FC<FormEditScreenProps> = ({ navigation }) => {
     const [hints, setHints] = useState<string[]>([]);
     const [addiHints, setAddiHints] = useState<string[]>([]);
     const [newHint, setNewHint] = useState('');
-    const [selectedAnimal, setSelectedAnimal] = useState<number | null>(null);
-
+    // const [selectedAnimal, setSelectedAnimal] = useState<number | null>(null);
+    const { selectedAnimal, setSelectedAnimal } = useAppContext();
     const animalImages = [
-        require('../../assets/animal1.png'),
-        require('../../assets/animal2.png'),
-        require('../../assets/animal3.png'),
-        require('../../assets/animal4.png'),
+        require('../../assets/animal_kawauso_juggling.png'),
+        require('../../assets/animal_kowai_kaba.png'),
+        require('../../assets/animal_wallaby_kangaroo.png'),
     ];
     const handleNextButton = () => {
-        navigation.navigate('FormPreviewScreen');
+        navigation.navigate('StickerScreen');
     };
     const handleBackButton = () => {
         navigation.navigate('GameScreen');
@@ -75,7 +75,11 @@ const FormEdit: React.FC<FormEditScreenProps> = ({ navigation }) => {
 
     return (
         <>
-            <View style={styles.container}>
+            <KeyboardAvoidingView
+                style={styles.container}
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
+            >
                 <Text style={styles.title}>選擇送禮動物</Text>
                 <View style={{ display: 'flex', flexDirection: 'row', gap: 30, alignSelf: 'center', padding: 59 }}>
                     {animalImages.map((animalImage, index) => (
@@ -91,7 +95,7 @@ const FormEdit: React.FC<FormEditScreenProps> = ({ navigation }) => {
                                 },
                             ]}
                         >
-                            <Image source={animalImage} style={{ width: 50, height: 50, alignSelf: 'center' }} />
+                            <Image source={animalImage} style={{ width: 75, height: 75, alignSelf: 'center' }} />
                         </TouchableOpacity>
                     ))}</View>
                 <Text style={styles.title}>提供關於自己的提示</Text>
@@ -136,7 +140,7 @@ const FormEdit: React.FC<FormEditScreenProps> = ({ navigation }) => {
                         <Text style={{ color: '#000000' }}>下一步</Text>
                     </Button>
                 </View>
-            </View >
+            </KeyboardAvoidingView>
         </>
     );
 };

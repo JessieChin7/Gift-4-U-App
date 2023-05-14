@@ -40,7 +40,7 @@ export const styles = StyleSheet.create({
         backgroundColor: 'transparent',
         borderWidth: 0,
         marginTop: 14,
-
+        underlineColor: 'transparent',
     },
     dropdownItem: {
         display: 'flex',
@@ -55,7 +55,6 @@ export const styles = StyleSheet.create({
         borderRadius: 30,
         borderWidth: 0,
         borderColor: 'transparent',
-
     },
     dropdownItemTitle: {
         height: 17,

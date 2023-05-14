@@ -4,6 +4,7 @@ import {
     Text,
     Image,
     Animated,
+    Alert,
 } from "react-native";
 import { Button } from 'react-native-paper';
 import { StatusBar } from 'expo-status-bar';
@@ -11,8 +12,7 @@ import Checkbox from 'expo-checkbox';
 import ModalDropdown from 'react-native-modal-dropdown';
 import { useForm, Controller } from 'react-hook-form';
 import { styles } from './FriendSelectionScreen.style';
-
-const images = require('../../assets/ming.png');
+import { useAppContext } from '../../context/AppContext';
 interface FriendSelectionScreenProps {
     navigation: any;
 }
@@ -27,14 +27,18 @@ interface FriendOption {
 const FriendSelectionScreen: React.FC<FriendSelectionScreenProps> = ({ navigation }) => {
     const [selectedFriend, setSelectedFriend] = useState<FriendOption | null>(null);
     const [friends, setFriend] = useState<FriendOption[]>([
-        { label: "小明", value: "小明", image: images },
-        { label: "中明", value: "中明", image: images },
-        { label: "大明", value: "大明", image: images },
+        { label: "阿明", value: "阿明", image: require('../../assets/little-ming.png') },
+        { label: "中明", value: "中明", image: require('../../assets/medium-ming.png') },
+        { label: "大明", value: "大明", image: require('../../assets/big-ming.png') },
     ]);
     // const [isAnonymous, setIsAnonymous] = useState('anonymous');
     const [isAnonymousSelected, setIsAnonymousSelected] = useState(false);
     const [isRealSelected, setIsRealSelected] = useState(false);
     const handleNextButton = () => {
+        if (selectedFriend === null) {
+            Alert.alert("請選擇要送禮的好友");
+            return;
+        }
         navigation.navigate('GameScreen');
     };
     const { handleSubmit, control } = useForm();
@@ -78,7 +82,7 @@ const FriendSelectionScreen: React.FC<FriendSelectionScreenProps> = ({ navigatio
                             options={friends}
                             renderRow={renderDropdownRow}
                             onSelect={onDropdownSelect}
-                            style={{ position: 'relative', left: 67, top: 4, backgroundColor: 'transparent' }}
+                            style={{ position: 'relative', left: 67, top: 4, backgroundColor: 'transparent', borderWidth: 0 }}
                             dropdownStyle={styles.dropdown}
                             onDropdownWillShow={toggleArrowRotation}
                             onDropdownWillHide={toggleArrowRotation}
