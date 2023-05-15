@@ -7,9 +7,11 @@ import { useAppContext } from "../../context/AppContext";
 import CardCartProduct from "./CardCartProduct";
 import { styles } from "./ShopScreen.style";
 
-interface ShopScreenProps {}
+interface ShopScreenProps {
+  navigation: any;
+}
 
-const ShopScreen: React.FC<ShopScreenProps> = () => {
+const ShopScreen: React.FC<ShopScreenProps> = ({ navigation }) => {
   const [isWishList, setIsWishList] = useState(true)
   const {wishListProducts, cartProducts} = useAppContext()
 
@@ -41,9 +43,19 @@ const ShopScreen: React.FC<ShopScreenProps> = () => {
       <ScrollView style={styles.scrollViewContainer} showsVerticalScrollIndicator={false}>
         {isWishList 
         ? wishListProducts.map((product) => 
-          <CardCartProduct src={product.src} productName={product.name} productPrice={product.price} key={product.name} />)
+          <CardCartProduct 
+            key={product.name} 
+            navigation={navigation}
+            src={product.src}
+            product={product}
+          />)
         : cartProducts.map((product) => 
-          <CardCartProduct src={product.src} productName={product.name} productPrice={product.price} key={product.name} />)
+          <CardCartProduct 
+            key={product.name}
+            navigation={navigation}
+            src={product.src} 
+            product={product}
+          />)
         }
 
       </ScrollView>

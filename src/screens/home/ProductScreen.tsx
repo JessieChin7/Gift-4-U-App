@@ -24,8 +24,11 @@ const ProductScreen: React.FC<ProductScreenProps> = ({ route, navigation }) => {
 
     const [addedToList, setAddedToList] = useState(false)
     const [addedToCart, setAddedToCart] = useState(false)
+    const [focusingLabel, setFocusingLabel] = useState('')
 
     const chosenProduct = allProducts.find((product) => product.id == productId)
+
+    const labelTexts = ["Extreme Soft", "Soft", "Medium", "Hard"]
 
     return (
         <View style={styles.container}>
@@ -40,10 +43,13 @@ const ProductScreen: React.FC<ProductScreenProps> = ({ route, navigation }) => {
                 <View style={styles.divider}/>
                 <Text style={styles.textProductOptions}>選擇 size</Text>
                 <View style={styles.labelsContainer}>
-                    <LabelItem text="Extreme Soft" />
-                    <LabelItem text="soft" />
-                    <LabelItem text="Medium" />
-                    <LabelItem text="Hard" />
+                    {labelTexts.map((text) => 
+                        <LabelItem 
+                            isFocus={text === focusingLabel}
+                            setFocusingLabel={setFocusingLabel}
+                            text={text}
+                        />
+                    )}
                 </View>
 
                 <View style={styles.btnsContainer}>

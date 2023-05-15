@@ -58,10 +58,10 @@ export const allProducts = [
     },
     {
         id: 8,
-        src: require('../../assets/products/video-game-console-alarm-clock.png'),
-        name: "遊戲機鬧鐘",
+        src: require('../../assets/products/hedgehog-wooden-hanging-clock.jpg'),
+        name: "刺猬時鐘掛鐘木鐘",
         price: 240,
-        description: "遊戲機鬧鐘不僅可以告訴您時間，還可以讓您回想起童年玩遊戲的歡樂。",
+        description: "刺猬時鐘掛鐘木鐘不僅可以告訴您時間，還可以讓您回想起童年玩遊戲的歡樂。",
     },
     {
         id: 9,

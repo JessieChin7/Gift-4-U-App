@@ -5,16 +5,20 @@ import { Text } from "react-native-elements";
 import { styles } from "./LabelItem.style";
 
 interface LabelProps {
+    isFocus: boolean;
+    setFocusingLabel: (text: string) => void;
     text: string;
 }
 
-const Label: React.FC<LabelProps> = ({ text }) => {
-    const [isFocus, setIsFocus] = useState(true)
+const Label: React.FC<LabelProps> = ({ isFocus, setFocusingLabel, text }) => {
+    // const [isFocus, setIsFocus] = useState(true)
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={() => setIsFocus(!isFocus)} style={isFocus ? styles.btnIsFocus : styles.btnNotFocus}>
-                <Text style={isFocus ? styles.textIsFocus : styles.textNotFocus}>{text}</Text>
+            <TouchableOpacity 
+                activeOpacity={0.9}
+                onPress={() => setFocusingLabel(text)} style={!isFocus ? styles.btnIsFocus : styles.btnNotFocus}>
+                <Text style={!isFocus ? styles.textIsFocus : styles.textNotFocus}>{text}</Text>
             </TouchableOpacity>
         </View>
     );

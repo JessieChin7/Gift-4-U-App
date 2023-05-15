@@ -27,14 +27,15 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignContent: 'flex-start',
         alignItems: 'center',
-        marginVertical: 25,
+        marginTop: 18,
+        marginBottom: 25,
     },
     textProductName: {
         fontSize: 28,
         height: 80,
         width: 300,
-        marginVertical: 10,
-        paddingTop: 10,
+        // marginVertical: 12,
+        paddingTop: 13,
     },
     textProductPrice: {
         fontSize: 18,

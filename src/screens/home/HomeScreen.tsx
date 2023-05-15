@@ -12,15 +12,15 @@ interface HomeScreenProps {
 }
 
 const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
-  const recentIds = [7, 8]
-  const moreIds = [3, 4]
+  const recentIds = [5, 7, 8, 9]
+  const moreIds = [3, 4, 6, 2, 1]
 
   const recents = allProducts.filter(product => recentIds.includes(product.id))
   const more = allProducts.filter(product => moreIds.includes(product.id))
 
   return (
     <ScrollView style={styles.container}>
-      <View>
+      {/* <View>
         <Text style={styles.textHeading}>分類</Text>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} contentContainerStyle={styles.categoryScrollContainer}>
           <RNBounceable onPress={() => {}} style={styles.categoryItem}>
@@ -30,7 +30,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
             <Image source={require('../../assets/products/hanger.png')} style={styles.categoryImage}/>
           </RNBounceable>
         </ScrollView>
-      </View>
+      </View> */}
 
       <View style={styles.productListContainer}>
         <Text style={styles.textHeading}>最近瀏覽</Text>
