@@ -4,22 +4,23 @@ import { Image, Text } from "react-native-elements";
 import RNBounceable from "@freakycoder/react-native-bounceable";
 
 import { styles } from "./CardCartProduct.style";
+import { Product } from "../../shared/data/fakeData";
 
 interface CardCartProductProps {
+  navigation: any;
   src: any;
-  productName: string;
-  productPrice: number;
+  product: Product
 }
 
-const CardCartProduct: React.FC<CardCartProductProps> = ({src, productName, productPrice}) => {
+const CardCartProduct: React.FC<CardCartProductProps> = ({ navigation, src, product }) => {
   return (
-    <RNBounceable style={styles.container} onPress={() => {}}>
+    <RNBounceable style={styles.container} onPress={() => navigation.navigate('Product', { productId: product.id })}>
         <View style={styles.imageTextContainer}>
             <Image source={src} style={styles.image}/>
 
             <View style={styles.textContainer}>
-                <Text style={styles.textName}>{ productName }</Text>
-                <Text style={styles.textPrice}>${ productPrice }</Text>
+                <Text style={styles.textName}>{ product.name }</Text>
+                <Text style={styles.textPrice}>${ product.price }</Text>
                 {/* <Image source={require('../../assets/icon-fav-sm.png')} style={styles.icon}/> */}
 
             </View>
