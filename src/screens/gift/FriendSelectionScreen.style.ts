@@ -106,7 +106,6 @@ export const styles = StyleSheet.create({
     },
     placeholderStyles: {
         color: "grey",
-
     },
 
 });

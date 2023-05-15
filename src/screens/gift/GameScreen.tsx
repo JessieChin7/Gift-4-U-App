@@ -227,7 +227,7 @@ const GameScreen: React.FC<GameScreenProps> = ({ navigation }) => {
                             </React.Fragment>
                         ))
                         }
-                        <View style={{ display: 'flex', flexDirection: 'row', gap: 166 }}>
+                        <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                             <Button onPress={handleBackButton} style={styles.backButton}>
                                 <Text style={{ color: '#000000' }}>返回</Text>
                             </Button>

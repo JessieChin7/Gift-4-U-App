@@ -19,14 +19,13 @@ export const styles = StyleSheet.create({
         fontSize: 24,
         lineHeight: 46,
         color: '#000000',
-
     },
     scrollViewContainer: {
         flex: 3,
         paddingBottom: 20,
     },
     scrollView: {
-        paddingHorizontal: 41,
+        paddingHorizontal: 40,
     },
     checkBoxContainer: {
         backgroundColor: '#D9D9D9',
@@ -41,7 +40,6 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         alignContent: 'center',
         marginBottom: 19,
-
     },
     detailBoxContainer: {
         backgroundColor: '#D9D9D9',

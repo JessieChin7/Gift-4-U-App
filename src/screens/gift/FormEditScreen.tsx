@@ -112,7 +112,7 @@ const FormEdit: React.FC<FormEditScreenProps> = ({ navigation }) => {
                             ]}
                         >
                             <Image source={animalImage} style={{ width: 75, height: 75, alignSelf: 'center' }} />
-                            <Text>{animalNames[index]}</Text>
+                            <Text style={{ fontSize: 17, fontWeight: 'bold' }}>{animalNames[index]}</Text>
                         </TouchableOpacity>
                     ))}</View>
                 <Text style={styles.title}>提供關於自己的提示</Text>
@@ -149,7 +149,7 @@ const FormEdit: React.FC<FormEditScreenProps> = ({ navigation }) => {
                         style={styles.input}
                     />
                 </View>
-                <View style={{ display: 'flex', flexDirection: 'row', gap: 166, alignSelf: 'center' }}>
+                <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                     <Button onPress={handleBackButton} style={styles.backButton}>
                         <Text style={{ color: '#000000' }}>返回</Text>
                     </Button>

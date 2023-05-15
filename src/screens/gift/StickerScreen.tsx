@@ -46,12 +46,12 @@ const StickerScreen: React.FC<StickerScreenProps> = ({ navigation }) => {
                 <Text style={styles.title}>選擇送禮通知貼圖</Text>
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', marginVertical: 40 }}>
                     {stickerImages.map((stickerImage, index) => (
-                        <TouchableOpacity key={index} onPress={() => handleStickerSelection(index)} style={{ margin: 6, padding: 8, borderWidth: selectedSticker === index ? 2 : 0, borderColor: 'gray', borderRadius: 5, borderStyle: 'solid' }}>
+                        <TouchableOpacity key={index} onPress={() => handleStickerSelection(index)} style={{ margin: 2, padding: 4, borderWidth: selectedSticker === index ? 2 : 0, borderColor: 'gray', borderRadius: 5, borderStyle: 'solid' }}>
                             <Image source={stickerImage} style={{ width: 100, height: 100, resizeMode: 'contain' }} />
                         </TouchableOpacity>
                     ))}
                 </View>
-                <View style={{ display: 'flex', flexDirection: 'row', gap: 166, alignSelf: 'center' }}>
+                <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                     <Button onPress={handleBackButton} style={styles.backButton}>
                         <Text style={{ color: '#000000' }}>返回</Text>
                     </Button>

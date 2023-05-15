@@ -5,13 +5,13 @@ export const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        alignItems: 'flex-start',
+        alignItems: 'stretch',
         paddingTop: 114,
+        paddingHorizontal: 24,
     },
     title: {
         width: 'auto',
         height: 37,
-        left: 24,
         fontStyle: 'normal',
         fontWeight: '700',
         fontSize: 24,
@@ -29,6 +29,5 @@ export const styles = StyleSheet.create({
         height: 35,
         backgroundColor: '#D9D9D9',
         borderRadius: 50,
-
     },
 });
