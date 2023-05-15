@@ -4,22 +4,15 @@ import { Dimensions } from 'react-native';
 const { width, height } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
-    // container: {
-    //     flex: 1,
-    //     backgroundColor: '#fff',
-    //     alignItems: 'flex-start',
-    //     paddingTop: 114,
-
-    // },
     container: {
         flex: 1,
-        // justifyContent: 'space-between',
         alignItems: 'center',
-        width: width * 1.23,
-        height: height * 1.23,
+        width: '100%',
+        height: '100%',
         position: 'relative',
-        bottom: 90,
-        right: 45,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-end',
     },
     title: {
         width: 'auto',

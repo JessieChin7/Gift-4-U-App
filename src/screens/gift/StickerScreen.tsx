@@ -1,4 +1,4 @@
-import { View, Image, TouchableOpacity, TextInput } from 'react-native';
+import { View, Image, TouchableOpacity, TextInput, Alert } from 'react-native';
 import React, { useState } from 'react';
 import { Text } from "react-native-elements";
 import { Button } from 'react-native-paper';
@@ -12,6 +12,12 @@ const StickerScreen: React.FC<StickerScreenProps> = ({ navigation }) => {
     const { selectedSticker, setSelectedSticker } = useAppContext();
 
     const handleNextButton = () => {
+        // 如果沒有選擇貼圖，就跳出警告
+        if (selectedSticker === null) {
+            Alert.alert("請選擇送禮貼圖");
+            return;
+        }
+
         navigation.navigate('FinishScreen');
     };
     const handleBackButton = () => {

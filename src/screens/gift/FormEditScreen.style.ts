@@ -33,8 +33,8 @@ export const styles = StyleSheet.create({
 
     },
     animalButton: {
-        width: 80,
-        height: 80,
+        width: 100,
+        height: 100,
         padding: 0,
         alignItems: 'center',
         justifyContent: 'center',

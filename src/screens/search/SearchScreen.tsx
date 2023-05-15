@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Text } from "react-native-elements";
-import { View, Image, TouchableOpacity, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, Image, TouchableOpacity, TextInput, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { styles } from "./SearchScreen.style";
 import { useNavigation, NavigationProp } from '@react-navigation/native';
@@ -11,7 +11,10 @@ const SearchScreen: React.FC<ResultScreenProps> = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
 
   const handleSearch = () => {
-    console.log("search term：", searchTerm);
+    if (searchTerm === '') {
+      Alert.alert('請輸入搜尋內容');
+      return;
+    }
     navigation.navigate('Result');
   };
 

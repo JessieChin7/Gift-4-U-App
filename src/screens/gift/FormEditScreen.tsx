@@ -1,9 +1,10 @@
-import { View, Image, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Image, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import React, { useState } from 'react';
 import { Text } from "react-native-elements";
 import { Button } from 'react-native-paper';
 import { styles } from './FormEditScreen.style';
 import { useAppContext } from '../../context/AppContext';
+import Label from '../home/LabelItem';
 interface FormEditScreenProps {
     navigation: any;
 }
@@ -38,7 +39,22 @@ const FormEdit: React.FC<FormEditScreenProps> = ({ navigation }) => {
         require('../../assets/animal_kowai_kaba.png'),
         require('../../assets/animal_wallaby_kangaroo.png'),
     ];
+    const animalNames = [
+        "海獺",
+        "河馬",
+        "袋鼠",
+    ];
     const handleNextButton = () => {
+        // 如果沒有選擇動物，就跳出警告
+        if (selectedAnimal === null) {
+            Alert.alert("請選擇動物");
+            return;
+        }
+        // 如果沒有選擇提示，就跳出警告
+        if (hints.length === 0) {
+            Alert.alert("請選擇提示");
+            return;
+        }
         navigation.navigate('StickerScreen');
     };
     const handleBackButton = () => {
@@ -96,6 +112,7 @@ const FormEdit: React.FC<FormEditScreenProps> = ({ navigation }) => {
                             ]}
                         >
                             <Image source={animalImage} style={{ width: 75, height: 75, alignSelf: 'center' }} />
+                            <Text>{animalNames[index]}</Text>
                         </TouchableOpacity>
                     ))}</View>
                 <Text style={styles.title}>提供關於自己的提示</Text>

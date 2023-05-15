@@ -6,7 +6,8 @@ import {
     FlatList,
     Image,
     KeyboardAvoidingView,
-    Platform
+    Platform,
+    Alert
 } from 'react-native';
 import { Button } from 'react-native-paper';
 import { styles } from './FinishScreen.style';
@@ -41,7 +42,8 @@ const FinishScreen: React.FC<FinishScreenProps> = ({ navigation }) => {
     ]);
     const [inputText, setInputText] = useState('');
     const flatListRef = useRef<FlatList>(null);
-    // 每次 messages 更新後，自動捲動到最底部
+
+    // every time messages changes, scroll to the end of the list
     useEffect(() => {
         setTimeout(() => {
             if (flatListRef.current) {
@@ -50,10 +52,6 @@ const FinishScreen: React.FC<FinishScreenProps> = ({ navigation }) => {
         }, 100);  // Delay of 100ms
     }, [messages]);
 
-    // const [guessedName, setGuessedName] = useState('小王');
-    console.log('chekcedItems: ', checkedItems);
-    console.log('chekcedRItems: ', checkeRItems);
-    console.log('chekcedPItems: ', checkedPItems);
     const stickerImages = [
         require('../../assets/sticker1.png'),
         require('../../assets/sticker2.png'),
@@ -66,12 +64,9 @@ const FinishScreen: React.FC<FinishScreenProps> = ({ navigation }) => {
         require('../../assets/sticker9.png'),
     ];
 
-
-
-
-
     const handleBackButton = () => {
-        navigation.navigate('StickerScreen');
+        setShowMingChatRoom(true);
+        navigation.push('ChatRoomScreen');
     };
 
     const handleSendMessage = () => {
@@ -82,10 +77,8 @@ const FinishScreen: React.FC<FinishScreenProps> = ({ navigation }) => {
     };
 
     const handleButtonClick = (response: 'correct' | 'wrong') => {
-        // 你可以在這裡添加其他的邏輯，例如根據回應來更新 guessedName
-        setMessages([...messages, { id: messages.length, content: '點擊察看結果！', sticker: null, sender: 'self' }]);
+        setMessages([...messages, { id: messages.length, content: '點擊查看結果！', sticker: null, sender: 'self' }]);
     };
-
 
     useEffect(() => {
 
@@ -137,9 +130,6 @@ const FinishScreen: React.FC<FinishScreenProps> = ({ navigation }) => {
         };
     }, []);
 
-
-
-
     return (
         <>
             <KeyboardAvoidingView
@@ -189,16 +179,14 @@ const FinishScreen: React.FC<FinishScreenProps> = ({ navigation }) => {
                                     (
                                         (item.sender === "self" && item.content === '點擊此訊息查看') ?
                                             <Button onPress={() => {
-                                                // setShowMingChatRoom(true);
-                                                // navigation.push('ChatRoomScreen');
+                                                Alert.alert('此訊息僅限於收禮者查看');
                                             }}>
                                                 <Text style={[styles.message, { fontWeight: 'bold', fontSize: 16, color: '#000000', padding: 0, margin: 0 }]}> {item.content}</Text>
                                             </Button>
                                             :
-                                            (item.sender === "self" && item.content === '點擊察看結果！') ?
+                                            (item.sender === "self" && item.content === '點擊查看結果！') ?
                                                 <Button onPress={() => {
-                                                    setShowMingChatRoom(true);
-                                                    navigation.push('ChatRoomScreen');
+                                                    Alert.alert('此訊息僅限於收禮者查看');
                                                 }}>
                                                     <Text style={[styles.message, { fontWeight: 'bold', fontSize: 16, color: '#000000', padding: 0, margin: 0 }]}> {item.content}</Text>
                                                 </Button>

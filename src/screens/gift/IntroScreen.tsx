@@ -33,12 +33,12 @@ const IntroScreen: React.FC<IntroScreenProps> = ({ navigation }) => {
                 style={styles.container}
                 resizeMode="cover"
             >
-                <View style={{ display: 'flex', flexDirection: 'row', alignSelf: 'center', top: 700 }}>
+                <View style={{ position: 'relative' }}>
                     <Button onPress={handleNextButton} style={styles.nextButton}>
                         <Text style={{ color: '#FFFFFF' }}>下一步</Text>
                     </Button>
                 </View>
-                <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignSelf: 'center', top: 680 }}>
+                <View style={{ display: 'flex', flexDirection: 'row', paddingBottom: 50 }}>
                     {[...Array(totalDots)].map((_, index) => (
                         <View
                             key={index}
